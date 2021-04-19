@@ -1,11 +1,24 @@
-import React from 'react';
+import React, {useState} from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
-const NaturalAreaListItem = ({row, added, index}) => {
+const NaturalAreaListItem = ({row, index}) => {
+    const [added, setAdded] = useState( false );
+
+    const displayCell = () => {
+        let display = <TableCell align="right" onClick={() => addToHunts()}>Add</TableCell>
+        if( added ) {
+            display = <TableCell align="right" onClick={() => removeFromHunts()}>Remove</TableCell>
+        }
+        return display;
+    }
+
     const addToHunts = () => {
-        console.log( 'in addToHunts' );
-        added = !added;
+        setAdded(!added);
+    }
+
+    const removeFromHunts = () => {
+        setAdded(!added);
     }
 
     return (
@@ -15,7 +28,7 @@ const NaturalAreaListItem = ({row, added, index}) => {
                     {row.result.name}
                 </TableCell>
                 <TableCell align="right">{row.result.county}</TableCell>
-                {!added ? <TableCell align="right" onClick={() => addToHunts()}>Add</TableCell> : <TableCell align="right" onClick={() => addToHunts()}>Remove</TableCell> }
+                {displayCell()}
             </TableRow>
         </>
     )
