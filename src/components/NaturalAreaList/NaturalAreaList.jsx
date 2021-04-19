@@ -7,6 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import NaturalAreaListItem from '../NaturalAreaListItem/NaturalAreaListItem';
 
 const useStyles = makeStyles({
     table: {
@@ -16,6 +17,8 @@ const useStyles = makeStyles({
 
 const NaturalAreaList = ({naturalAreas}) => {
     const classes = useStyles();
+
+    let added = false;
 
     return (
         <TableContainer component={Paper}>
@@ -29,13 +32,7 @@ const NaturalAreaList = ({naturalAreas}) => {
                 </TableHead>
                 <TableBody>
                 {naturalAreas.map((row, index) => (
-                    <TableRow key={index}>
-                    <TableCell component="th" scope="row">
-                        {row.result.name}
-                    </TableCell>
-                    <TableCell align="right">{row.result.county}</TableCell>
-                    <TableCell align="right">Add</TableCell>
-                    </TableRow>
+                    <NaturalAreaListItem row={row} added={added} index={index}/>
                 ))}
                 </TableBody>
             </Table>
