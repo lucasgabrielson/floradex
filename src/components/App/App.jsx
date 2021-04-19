@@ -19,6 +19,13 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import NaturalAreas from '../NaturalAreas/NaturalAreas';
+import Flora from '../Flora/Flora';
+import NaturalAreaItem from '../NaturalAreaItem/NaturalAreaItem';
+import Leaderboard from '../Leaderboard/Leaderboard';
+import MyHunts from '../MyHunts/MyHunts';
+import MyHuntsItem from '../MyHuntsItem/MyHuntsItem';
+import Admin from '../Admin/Admin';
 
 import './App.css';
 
@@ -101,7 +108,56 @@ function App() {
           >
             <LandingPage />
           </ProtectedRoute>
+          
+          <Route
+            exact
+            path="/natural-areas"
+          >
+            <NaturalAreas />
+          </Route>
 
+          <Route
+            exact
+            path="/flora"
+          >
+            <Flora />
+          </Route>
+
+          <Route
+            exact
+            path="/natural-area/:id"
+          >
+            <NaturalAreaItem />
+          </Route>
+
+          <Route
+            exact
+            path="/my-hunts/:id"
+          >
+            <MyHunts />
+          </Route>
+
+          <Route
+            exact
+            path="/my-hunts-item/:id"
+          >
+            <MyHuntsItem />
+          </Route>
+
+          <Route
+            exact
+            path="/leaderboard/:id"
+          >
+            <Leaderboard />
+          </Route>
+
+          <Route
+            exact
+            path="/admin"
+          >
+            <Admin />
+          </Route>
+          
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
             <h1>404</h1>

@@ -55,3 +55,16 @@ export default GoogleApiWrapper({
 // }
 // 
 // export default Map
+
+
+// {/* <Map /> */}
+//     {/* <br />
+//     <small>
+//         <a 
+//             href="https://maps.google.com/maps?q='+data.lat+','+data.lon+'&hl=es;z=14&amp;output=embed" 
+//             style="color:#0000FF;text-align:left" 
+//             target="_blank"
+//         >
+//             See map bigger
+//         </a>
+//     </small> */}
