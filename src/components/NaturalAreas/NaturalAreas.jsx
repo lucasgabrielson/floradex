@@ -1,4 +1,5 @@
-import React, {useState, useDispatch, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
+import { useDispatch } from 'react-redux';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import {
     Toolbar,
@@ -33,7 +34,6 @@ const NaturalAreas = () => {
     const classes = useStyles();
 
     const dispatch = useDispatch();
-
 
     const [search, setSearch] = useState({});
 
