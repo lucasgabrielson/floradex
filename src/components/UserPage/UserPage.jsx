@@ -6,14 +6,13 @@ import {Link} from 'react-router-dom';
 function UserPage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   useEffect(() => {
-    dispatch({ type: 'FETCH_DNR_APIS' });
+    dispatch({ type: 'FETCH_DNR_APIS' }); 
 }, []);
 
   const dispatch = useDispatch();
 
   const user = useSelector((store) => store.user);
 
-  const dnrApis = useSelector( store => store.dnrApis);
   return (
     <>
       <header>
@@ -38,7 +37,6 @@ function UserPage() {
         <p>Your ID is: {user.id}</p>
         
       </div> */}
-      {JSON.stringify(dnrApis)}
     </>
   );
 }

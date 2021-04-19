@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import {
     Toolbar,
@@ -35,6 +35,8 @@ const NaturalAreas = () => {
 
     const dispatch = useDispatch();
 
+    const naturalAreas = useSelector((store) => store.naturalAreas);
+
     const [search, setSearch] = useState({});
 
     const searchForNaturalArea = () => {
@@ -58,6 +60,7 @@ const NaturalAreas = () => {
                     <TextField onChange={e => setSearch(e.target.value)} />
                 </div>
             </Toolbar>
+            {JSON.stringify(naturalAreas[0].result.species.tree_shrub[0].cname)}
         </div>
     )
 }

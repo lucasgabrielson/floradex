@@ -1,25 +1,24 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-// worker Saga: will be fired on "REGISTER" actions
+const dnrApis = [
+    'http://services.dnr.state.mn.us/api/sna/detail/v1?id=sna01065',
+    'http://services.dnr.state.mn.us/api/sna/detail/v1?id=sna01038',
+    'http://services.dnr.state.mn.us/api/sna/detail/v1?id=sna01024',
+]
+
 function* naturalAreas(action) {
-    try {
-    // clear any existing error on the registration page
-        yield put({ type: 'CLEAR_REGISTRATION_ERROR' });
-
-        // passes the username and password from the payload to the server
-        yield axios.post('/api/user/register', action.payload);
-
-        // automatically log a user in after registration
-        yield put({ type: 'LOGIN', payload: action.payload });
-
-        // set to 'login' mode so they see the login screen
-        // after registration or after they log out
-        yield put({ type: 'SET_TO_LOGIN_MODE' });
-    } catch (error) {
-        console.log('Error with user registration:', error);
-        yield put({ type: 'REGISTRATION_FAILED' });
+    for( let i = 0; i < dnrApis.length; i++) {
+        let endpoint = dnrApis[i];
+        try {
+            console.log( 'in naturalAreas' );
+            const response = yield axios.get('/api/natural-areas/' + i);
+            yield put({ type: 'SET_NATURAL_AREAS', payload: response.data });
+        } catch (error) {
+            console.log('Error getting natural areas from dnr api', error);
+        }
     }
+    
 }
 
 function* naturalAreasSaga() {
