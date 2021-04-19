@@ -6,6 +6,7 @@ import {
     TextField
 } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import NaturalAreaList from '../NaturalAreaList/NaturalAreaList'
 
 const useStyles = makeStyles( theme => ({
     // root: {
@@ -72,7 +73,8 @@ const NaturalAreas = () => {
                     <TextField onChange={e => setSearch(e.target.value)} />
                 </div>
             </Toolbar>
-            {JSON.stringify(naturalAreas)}
+            <NaturalAreaList naturalAreas={naturalAreas} />
+
         </div>
     )
 }

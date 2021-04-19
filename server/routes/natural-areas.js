@@ -169,7 +169,7 @@ router.get('/:id', (req, res) => {
     console.log( 'in GET /api/natural-areas', req.params.id);
         axios.get(dnrApis[req.params.id])
             .then( response => {
-                res.send(response.data.result.species.tree_shrub[0].cname)
+                res.send(response.data)
             }).catch( err => {
                 console.log( 'erroing connecting with dnr api');
                 res.sendStatus(500);
