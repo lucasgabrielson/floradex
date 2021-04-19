@@ -28,8 +28,10 @@ const useStyles = makeStyles( theme => ({
 
 const NaturalAreas = () => {
     useEffect(() => {
-        dispatch({ type: 'FETCH_NATURAL_AREAS' });
+        getNaturalAreas()
     }, []);
+
+    const dnrApis = useSelector((store) => store.dnrApis);
 
     const classes = useStyles();
 
@@ -41,6 +43,16 @@ const NaturalAreas = () => {
 
     const searchForNaturalArea = () => {
         console.log( 'in searchForNaturalArea' );
+    }
+    const getNaturalAreas = () => {
+        let mounted = false;
+        if( naturalAreas.length ) {
+            mounted = true
+        }
+        if( !mounted ) {
+            dispatch({ type: 'FETCH_NATURAL_AREAS' });
+        }
+        
     }
 
   // const getDNREndpoints = () => {
@@ -60,7 +72,7 @@ const NaturalAreas = () => {
                     <TextField onChange={e => setSearch(e.target.value)} />
                 </div>
             </Toolbar>
-            {JSON.stringify(naturalAreas[0].result.species.tree_shrub[0].cname)}
+            {JSON.stringify(naturalAreas)}
         </div>
     )
 }
