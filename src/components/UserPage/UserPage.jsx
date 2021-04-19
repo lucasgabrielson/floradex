@@ -1,6 +1,7 @@
 import React from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector, useDispatch} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 function UserPage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
@@ -19,12 +20,19 @@ function UserPage() {
       <header>
         <h1>Floradex</h1>
         <h2>Let the Adventure Begin!</h2>
-        <p>1/1325</p>
+        <p>Add Leaderboard Position Here</p>
         <LogOutButton className="btn" />
       </header>
       <Link to = '/natural-areas'>
         <button>Find a Natural Area</button>
       </Link>
+      <Link to = '/flora'>
+        <button>Find a Plant</button>
+      </Link>
+      <Link to = {`/my-hunts/${user.id}`} params={user.id}>
+        <button>My Hunts</button>
+      </Link>
+      {/* <Footer /> */}
       
       {/* <div className="container">
         <h2>Welcome, {user.username}!</h2>
