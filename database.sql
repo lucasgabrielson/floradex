@@ -30,6 +30,7 @@ CREATE TABLE natural_areas_hunts_flora (
 	FOREIGN KEY (user_id) REFERENCES "user"(id),
 	"natural_area_id" VARCHAR(400),
 	FOREIGN KEY (natural_area_id) REFERENCES natural_areas(dnr_api),
+    image VARCHAR(255),
 	found BOOLEAN,
 	substantiated BOOLEAN
 );
