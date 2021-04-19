@@ -1,13 +1,33 @@
 import React from 'react';
 import './Footer.css';
+import {useSelector} from 'react-redux';
 
-// This is one of our simplest components
-// It doesn't have local state, so it can be a function component.
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is, so it doesn't need 'connect()'
+import {Link} from 'react-router-dom';
+
 
 function Footer() {
-  return <footer>&copy; Prime Digital Academy</footer>;
+  const user = useSelector((store) => store.user);
+
+  return (
+    <>
+    <footer>
+      <Link to = '/natural-areas'>
+        <button>Natural Areas</button>
+      </Link>
+      <Link to = '/flora'>
+        <button>Flora</button>
+      </Link>
+      <Link to = '/user'>
+        <button>Home</button>
+      </Link>
+      <Link to = {`/my-hunts/${user.id}`} params={user.id}>
+        <button>My Hunts</button>
+      </Link>
+      &copy; L. Clay Gabrielson
+      </footer>
+    </>
+  
+  );
 }
 
 export default Footer;
