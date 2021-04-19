@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useDispatch, useEffect} from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import {
     Toolbar,
@@ -26,17 +26,36 @@ const useStyles = makeStyles( theme => ({
 }));
 
 const NaturalAreas = () => {
+    useEffect(() => {
+        dispatch({ type: 'FETCH_NATURAL_AREAS' });
+    }, []);
+
     const classes = useStyles();
 
+    const dispatch = useDispatch();
+
+
     const [search, setSearch] = useState({});
+
+    const searchForNaturalArea = () => {
+        console.log( 'in searchForNaturalArea' );
+    }
+
+  // const getDNREndpoints = () => {
+  //   console.log( 'in getDNREndpoints' );
+  //   dispatchEvent
+  //   axios.get('/api/dnr')
+  //     .then( response => {
+  //       console.log( response );
+  //     })
+  // }
     return (
         <div>
             <h1>Natural Areas</h1>
             <Toolbar>
                 <div className ={classes.searchContainer}>
-                    <SearchIcon className={classes.searchIcon}/>
+                    <SearchIcon onClick={() => searchForNaturalArea()} className={classes.searchIcon}/>
                     <TextField onChange={e => setSearch(e.target.value)} />
-                    {JSON.stringify(search)}
                 </div>
             </Toolbar>
         </div>

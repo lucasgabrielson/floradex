@@ -5,15 +5,7 @@ import {Link} from 'react-router-dom';
 
 function UserPage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
-  // const dispatch = useDispatch();
-  // const getDNREndpoints = () => {
-  //   console.log( 'in getDNREndpoints' );
-  //   dispatchEvent
-  //   axios.get('/api/dnr')
-  //     .then( response => {
-  //       console.log( response );
-  //     })
-  // }
+  
   const user = useSelector((store) => store.user);
   return (
     <>
