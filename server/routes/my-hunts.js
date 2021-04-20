@@ -17,19 +17,34 @@ router.post('/', (req, res) => {
     let queryText = `INSERT INTO user_hunts ("user_id", "natural_area_id") VALUES ($1, $2);`
     pool.query( queryText, [ req.query.userId, 'http://services.dnr.state.mn.us/api/sna/detail/v1?id=' + req.query.endpoint])
         .then( _ => {
-            res.sendStatus(200)
+            let sqlText = `SELECT * FROM user_hunts WHERE user_id = $1`;
+            pool.query(sqlText, [req.query.userId])
+                .then( results => {
+                    res.send(results.rows);
+                }).catch( err => {
+                    console.log( err );
+                    res.sendStatus(500);
+                })
+            // res.sendStatus(200)
         }).catch( err => {
             console.log( err );
             res.sendStatus(500);
         })
 });
 
-router.delete('/', (req, res) => {
-    console.log('in /api/my-hunts DELETE', req.query);
-    let queryText = `DELETE FROM user_hunts WHERE user_id = $1 AND natural_area_id = $2;`
-    pool.query( queryText, [ req.query.userId, 'http://services.dnr.state.mn.us/api/sna/detail/v1?id=' + req.query.endpoint])
+router.put('/', (req, res) => {
+    console.log('in /api/my-hunts PUT', req.query);
+    let queryText = `UPDATE user_hunts SET displayed = $3 WHERE user_id = $1 AND natural_area_id = $2 ;`
+    pool.query( queryText, [ req.query.userId, 'http://services.dnr.state.mn.us/api/sna/detail/v1?id=' + req.query.endpoint, req.query.displayed])
         .then( _ => {
-            res.sendStatus(204)
+            let sqlText = `SELECT * FROM user_hunts WHERE user_id = $1`;
+            pool.query(sqlText, [req.query.userId])
+                .then( results => {
+                    res.send(results.rows);
+                }).catch( err => {
+                    console.log( err );
+                    res.sendStatus(500);
+                })
         }).catch( err => {
             console.log( err );
             res.sendStatus(500);

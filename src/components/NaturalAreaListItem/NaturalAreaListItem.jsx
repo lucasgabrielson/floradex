@@ -10,28 +10,49 @@ const NaturalAreaListItem = ({row, index}) => {
 
     const user = useSelector((store) => store.user);
 
+    const userHunts = useSelector( store => store.userHunts);
+
+    const pos = userHunts.map(function(e) { return e.natural_area_id; }).indexOf('http://services.dnr.state.mn.us/api/sna/detail/v1?id=' + row.result.id);
+
+    let displayed = false; 
+
+    console.log('pos', pos, 'of:', row.result.id);
 
     const displayCell = () => {
+        if( userHunts[pos] !== undefined ) {
+            console.log( userHunts[pos].displayed  )
+        }
         let display = <TableCell align="right" onClick={() => addToHunts()}>Add</TableCell>
-        if( added ) {
-            display = <TableCell align="right" onClick={() => removeFromHunts()}>Remove</TableCell>
+        if( userHunts[pos] !== undefined ) {
+            if( userHunts[pos].displayed ) {
+                display = <TableCell align="right" onClick={() => removeFromHunts()}>Remove</TableCell>
+            }
         }
         return display;
     }
 
+    let objectToSend = {
+        id: user.id,
+        endpoint: row.result.id,
+        displayed: displayed
+    }
+
     const addToHunts = () => {
-        setAdded(!added);
-        dispatch({ type: 'ADD_TO_HUNTS', payload: objectToSend });
+        if( pos === -1 ) {
+            dispatch({ type: 'ADD_TO_HUNTS', payload: objectToSend });
+        } else {
+            objectToSend = {
+                id: user.id,
+                endpoint: row.result.id,
+                displayed: true
+            }
+            dispatch({ type: 'UPDATE_HUNTS', payload: objectToSend });
+        }
+        
     }
 
     const removeFromHunts = () => {
-        setAdded(!added);
-        dispatch({ type: 'DELETE_FROM_HUNTS', payload: objectToSend })
-    }
-
-    const objectToSend = {
-        id: user.id,
-        endpoint: row.result.id
+        dispatch({ type: 'UPDATE_HUNTS', payload: objectToSend })
     }
 
     return (
