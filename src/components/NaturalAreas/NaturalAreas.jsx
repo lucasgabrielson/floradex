@@ -42,7 +42,9 @@ const NaturalAreas = () => {
 
     const [search, setSearch] = useState({});
 
-    let filtered = [];
+    const [filtered, setFiltered] = useState([]);
+
+    const [searched, setSearched] = useState(false);
 
     const searchForNaturalArea = () => {
         console.log( 'in searchForNaturalArea' );
@@ -51,9 +53,11 @@ const NaturalAreas = () => {
         }).join('');
         let regex = new RegExp(`${pattern}`, "gi");
         console.log(regex);
-        filtered = naturalAreas.filter( area => (area.result.county + ' ' + area.result.name).split('').join('').match(regex))
-        console.log(filtered)
+        setFiltered(naturalAreas.filter( area => (area.result.county + ' ' + area.result.name).split('').join('').match(regex)))
+        console.log(filtered);
+        setSearched(!searched);
     }
+
     const getNaturalAreas = () => {
         let mounted = false;
         if( naturalAreas.length ) {
@@ -62,7 +66,14 @@ const NaturalAreas = () => {
         if( !mounted ) {
             dispatch({ type: 'FETCH_NATURAL_AREAS' });
         }
-        
+    }
+
+    const displayList = () => {
+        let display = <NaturalAreaList naturalAreas={naturalAreas} />
+        if( searched ) {
+            display = <NaturalAreaList naturalAreas={filtered} />
+        }
+        return display;
     }
 
   // const getDNREndpoints = () => {
@@ -83,7 +94,7 @@ const NaturalAreas = () => {
                 </div>
             </Toolbar>
             {JSON.stringify(search)}
-            <NaturalAreaList naturalAreas={naturalAreas} />
+            {displayList()}
 
         </div>
     )
