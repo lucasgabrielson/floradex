@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {Link, useHistory} from 'react-router-dom';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
@@ -21,6 +22,8 @@ const NaturalAreaListItem = ({row, index}) => {
     let displayed = false; 
 
     console.log('pos', pos, 'of:', row.result.id);
+
+    const history = useHistory();
 
     const displayCell = () => {
         if( userHunts[pos] !== undefined ) {
@@ -59,13 +62,20 @@ const NaturalAreaListItem = ({row, index}) => {
         dispatch({ type: 'UPDATE_HUNTS', payload: objectToSend })
     }
 
+    const individualPage = () => {
+        dispatch({type: 'FETCH_NATURAL_AREA', payload: row.result.id});
+        history.push(`/natural-area/${row.result.id}`, {params: row.result.id})
+    }
+
     return (
         <>
             <TableRow key={index}>
-                <TableCell component="th" scope="row">
+                {/* <Link to={`/natural-area/${row.result.id}`} params={row.result.id}> */}
+                <TableCell component="th" scope="row" onClick={() => individualPage()}>
                     {row.result.name}
                 </TableCell>
                 <TableCell align="right">{row.result.county}</TableCell>
+                {/* </Link> */}
                 {displayCell()}
             </TableRow>
         </>

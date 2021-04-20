@@ -179,6 +179,19 @@ router.get('/:id', (req, res) => {
             })
 });
 
+router.get('/', (req, res) => {
+    console.log( 'in GET /api/natural-areas', req.query.id);
+        axios.get('http://services.dnr.state.mn.us/api/sna/detail/v1?id=' + req.query.id)
+            .then( response => {
+                res.send(response.data)
+            }).catch( err => {
+                console.log( 'erroing connecting with dnr api');
+                res.sendStatus(500);
+            })
+});
+
+
+
 /**
  * POST route template
  */
