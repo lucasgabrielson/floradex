@@ -1,10 +1,12 @@
-import React, {useState, useDispatch, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import {
     Toolbar,
     TextField
 } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import NaturalAreaList from '../NaturalAreaList/NaturalAreaList'
 
 const useStyles = makeStyles( theme => ({
     // root: {
@@ -27,18 +29,51 @@ const useStyles = makeStyles( theme => ({
 
 const NaturalAreas = () => {
     useEffect(() => {
-        dispatch({ type: 'FETCH_NATURAL_AREAS' });
+        getNaturalAreas()
     }, []);
+
+    const dnrApis = useSelector((store) => store.dnrApis);
 
     const classes = useStyles();
 
     const dispatch = useDispatch();
 
+    const naturalAreas = useSelector((store) => store.naturalAreas);
 
     const [search, setSearch] = useState({});
 
+    const [filtered, setFiltered] = useState([]);
+
+    const [searched, setSearched] = useState(false);
+
     const searchForNaturalArea = () => {
         console.log( 'in searchForNaturalArea' );
+        let pattern = search.split('').map( x => {
+            return `(?=.*${x})`
+        }).join('');
+        let regex = new RegExp(`${pattern}`, "gi");
+        console.log(regex);
+        setFiltered(naturalAreas.filter( area => (area.result.county + ' ' + area.result.name).split('').join('').match(regex)))
+        console.log(filtered);
+        setSearched(!searched);
+    }
+
+    const getNaturalAreas = () => {
+        let mounted = false;
+        if( naturalAreas.length ) {
+            mounted = true
+        }
+        if( !mounted ) {
+            dispatch({ type: 'FETCH_NATURAL_AREAS' });
+        }
+    }
+
+    const displayList = () => {
+        let display = <NaturalAreaList naturalAreas={naturalAreas} />
+        if( searched ) {
+            display = <NaturalAreaList naturalAreas={filtered} />
+        }
+        return display;
     }
 
   // const getDNREndpoints = () => {
@@ -58,6 +93,9 @@ const NaturalAreas = () => {
                     <TextField onChange={e => setSearch(e.target.value)} />
                 </div>
             </Toolbar>
+            {JSON.stringify(search)}
+            {displayList()}
+
         </div>
     )
 }
