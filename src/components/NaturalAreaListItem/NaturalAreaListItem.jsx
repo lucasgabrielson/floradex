@@ -21,11 +21,12 @@ const NaturalAreaListItem = ({row, index}) => {
 
     const addToHunts = () => {
         setAdded(!added);
-        dispatch({ type: 'ADD_TO_HUNTS', payload: objectToSend  });
+        dispatch({ type: 'ADD_TO_HUNTS', payload: objectToSend });
     }
 
     const removeFromHunts = () => {
         setAdded(!added);
+        dispatch({ type: 'DELETE_FROM_HUNTS', payload: objectToSend })
     }
 
     const objectToSend = {
