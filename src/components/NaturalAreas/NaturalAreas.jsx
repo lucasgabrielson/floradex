@@ -42,8 +42,17 @@ const NaturalAreas = () => {
 
     const [search, setSearch] = useState({});
 
+    let filtered = [];
+
     const searchForNaturalArea = () => {
         console.log( 'in searchForNaturalArea' );
+        let pattern = search.split('').map( x => {
+            return `(?=.*${x})`
+        }).join('');
+        let regex = new RegExp(`${pattern}`, "gi");
+        console.log(regex);
+        filtered = naturalAreas.filter( area => (area.result.county + ' ' + area.result.name).split('').join('').match(regex))
+        console.log(filtered)
     }
     const getNaturalAreas = () => {
         let mounted = false;
@@ -73,6 +82,7 @@ const NaturalAreas = () => {
                     <TextField onChange={e => setSearch(e.target.value)} />
                 </div>
             </Toolbar>
+            {JSON.stringify(search)}
             <NaturalAreaList naturalAreas={naturalAreas} />
 
         </div>
