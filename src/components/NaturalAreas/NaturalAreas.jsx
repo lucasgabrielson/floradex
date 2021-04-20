@@ -28,20 +28,26 @@ const useStyles = makeStyles( theme => ({
 }));
 
 const NaturalAreas = () => {
+    // On component mount make all of the api calls to return the sna objects from the DNR 
     useEffect(() => {
         getNaturalAreas()
     }, []);
-
+    
+    // bring in the dnrApis from redux -- this is currently unncessary because I have the information hard
+    // wired in the router
     const dnrApis = useSelector((store) => store.dnrApis);
 
     const classes = useStyles();
 
     const dispatch = useDispatch();
 
+    // bring in all of the sna objects that were fetched from the api
     const naturalAreas = useSelector((store) => store.naturalAreas);
 
+    // this is the local state for the value of the search bar
     const [search, setSearch] = useState({});
 
+    // this is the local state 
     const [filtered, setFiltered] = useState([]);
 
     const [searched, setSearched] = useState(false);

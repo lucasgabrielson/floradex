@@ -3,8 +3,14 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 /**
- * GET route template
+ * GET http://localhost:300/api/dnr-apis
+ * Returns an array of MN DNR SNA API endpoint objects:
+ * {
+ *  "id": 155
+ *  "dnr_api": 'http://services.dnr.state.mn.us/api/sna/detail/v1?id=sna01045'
+ * }
  */
+
 router.get('/', (req, res) => {
     console.log( 'in GET /api/dnr-apis');
     let queryText = `SELECT * FROM natural_areas`;

@@ -4,7 +4,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
 
 function UserPage() {
-  // this component doesn't do much to start, just renders some user reducer info to the DOM
+  // On component mount get all of the api endpoints with plant information from the database
   useEffect(() => {
     dispatch({ type: 'FETCH_DNR_APIS' }); 
 }, []);
@@ -30,13 +30,6 @@ function UserPage() {
       <Link to = {`/my-hunts/${user.id}`} params={user.id}>
         <button>My Hunts</button>
       </Link>
-      {/* <Footer /> */}
-      
-      {/* <div className="container">
-        <h2>Welcome, {user.username}!</h2>
-        <p>Your ID is: {user.id}</p>
-        
-      </div> */}
     </>
   );
 }
