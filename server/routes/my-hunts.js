@@ -5,8 +5,16 @@ const router = express.Router();
 /**
  * GET route template
  */
-router.get('/', (req, res) => {
-  // GET route code here
+router.get('/:id', (req, res) => {
+    console.log( 'in api/my-hunts GET', req.params.id);
+    let sqlText = `SELECT * FROM user_hunts WHERE user_id = $1`;
+        pool.query(sqlText, [req.params.id])
+            .then( results => {
+                res.send(results.rows);
+            }).catch( err => {
+                console.log( err );
+                res.sendStatus(500);
+            })    
 });
 
 /**

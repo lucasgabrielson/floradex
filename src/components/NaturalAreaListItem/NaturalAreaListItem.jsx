@@ -1,9 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
 const NaturalAreaListItem = ({row, index}) => {
+    useEffect(() => {
+        dispatch({ type: 'GET_MY_HUNTS', payload: user.id }); 
+    }, []);
+
     const [added, setAdded] = useState( false );
 
     const dispatch = useDispatch();
