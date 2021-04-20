@@ -76,14 +76,6 @@ const NaturalAreas = () => {
         return display;
     }
 
-  // const getDNREndpoints = () => {
-  //   console.log( 'in getDNREndpoints' );
-  //   dispatchEvent
-  //   axios.get('/api/dnr')
-  //     .then( response => {
-  //       console.log( response );
-  //     })
-  // }
     return (
         <div>
             <h1>Natural Areas</h1>
@@ -93,7 +85,6 @@ const NaturalAreas = () => {
                     <TextField onChange={e => setSearch(e.target.value)} />
                 </div>
             </Toolbar>
-            {JSON.stringify(search)}
             {displayList()}
 
         </div>
