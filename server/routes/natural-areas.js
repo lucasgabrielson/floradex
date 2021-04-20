@@ -163,8 +163,11 @@ const dnrApis = [
 ]
 
 /**
- * GET route template
+ * GET http://localhost:300/api/my-hunts/1
+ * Returns an sna object from DNR API:
+ * For domentation see documentation/dnr_api_document/documentation.md
  */
+
 router.get('/:id', (req, res) => {
     console.log( 'in GET /api/natural-areas', req.params.id);
         axios.get(dnrApis[req.params.id])
