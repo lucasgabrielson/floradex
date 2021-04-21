@@ -5,6 +5,7 @@ import userSaga from './user.saga';
 import dnrApisSaga from './dnrApis.saga';
 import naturalAreasSaga from './naturalAreas.saga';
 import addToHunts from './addToHunts.saga'; 
+import trefleApisSaga from './trefleApi.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -21,5 +22,6 @@ export default function* rootSaga() {
     dnrApisSaga(),
     naturalAreasSaga(),
     addToHunts(),
+    trefleApisSaga(),
   ]);
 }

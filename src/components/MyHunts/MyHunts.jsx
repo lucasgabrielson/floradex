@@ -9,3 +9,4 @@ const MyHunts = () => {
 }
 
 export default MyHunts
+

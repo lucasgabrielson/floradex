@@ -63,7 +63,7 @@ const NaturalAreaListItem = ({row, index}) => {
     }
 
     const individualPage = () => {
-        dispatch({type: 'FETCH_NATURAL_AREA', payload: row.result.id});
+        // dispatch({type: 'FETCH_NATURAL_AREA', payload: row.result.id});
         history.push(`/natural-area/${row.result.id}`, {params: row.result.id})
     }
 

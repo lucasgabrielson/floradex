@@ -5,6 +5,7 @@ import dnrApis from './dnrApis.reducer';
 import naturalAreas from './naturalAreas.reducer';
 import userHunts from './userHunts.reducer';
 import naturalArea from './naturalArea.reducer';
+import trefleApis from './trefleApis.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   naturalAreas,
   userHunts,
   naturalArea,
+  trefleApis,
 });
 
 export default rootReducer;
