@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import {useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import './LandingPage.css';
 
@@ -6,8 +7,12 @@ import './LandingPage.css';
 import RegisterForm from '../RegisterForm/RegisterForm';
 
 function LandingPage() {
+  useEffect(() => { dispatch({ type: 'FETCH_NATURAL_AREAS' }); }, []);
   const [heading, setHeading] = useState('Welcome');
   const history = useHistory();
+  const dispatch = useDispatch();
+
+
 
   const onLogin = (event) => {
     history.push('/login');
