@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
@@ -27,30 +27,49 @@ const useStyles = makeStyles((theme) => ({
 const NaturalAreaItemSpeciesList = ({row, index, type}) => {
     const classes = useStyles();
     // getModalStyle is not a pure function, we roll the style only on the first render
-    const [modalStyle] = React.useState(getModalStyle);
-    const [open, setOpen] = React.useState(false);
+    const [modalStyle] = useState(getModalStyle);
+    const [open, setOpen] = useState(false);
     const dispatch = useDispatch();
-    const floraImage = useSelector( store => store.trefleApis)
+    let floraImage = [];
+    floraImage = useSelector( store => store.trefleApis);
+
+    function pollDOM () {
+      
+        if (floraImage !== []) {
+          return;
+        } else {
+          setTimeout(pollDOM, 300); // try again in 300 milliseconds
+        }
+      }
+
+    function sleep(milliseconds) {
+        const date = Date.now();
+        let currentDate = null;
+        do {
+            currentDate = Date.now();
+        } while (currentDate - date < milliseconds);
+    }
 
     const handleOpen = () => {
-        setOpen(true);
+        
         dispatch({type: 'GET_FLORA_IMAGE', payload: row.sname});
+        // src = ;
+        // src = floraImage.data[0].image_url;
+        setOpen(true);
     };
 
     const handleClose = () => {
         setOpen(false);
+        dispatch({type: 'CLEAR_FLORA'})
     };
 
-    const src = floraImage.data.find( x => x.image_url !== null).image_url
+    let src = '';
 
     const body = (
         <div style={modalStyle} className={classes.paper}>
         <h2 id="simple-modal-title">{row.cname}</h2>
         <h2>{row.sname}</h2>
-        {/* <p id="simple-modal-description">
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-        </p> */}
-        <img src={src} />
+        {!Array.isArray(floraImage) ? <img src={floraImage.data.find( x => x.image_url !== null).image_url}/> : <p>Loading</p>}
         </div>
     );
 
