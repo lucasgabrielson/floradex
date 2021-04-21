@@ -18,8 +18,6 @@ const useStyles = makeStyles({
 const NaturalAreaList = ({naturalAreas}) => {
     const classes = useStyles();
 
-    let added = false;
-
     return (
         <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="simple table">
@@ -32,7 +30,7 @@ const NaturalAreaList = ({naturalAreas}) => {
                 </TableHead>
                 <TableBody>
                 {naturalAreas.map((row, index) => (
-                    <NaturalAreaListItem row={row} added={added} index={index}/>
+                    <NaturalAreaListItem row={row} index={index}/>
                 ))}
                 </TableBody>
             </Table>
