@@ -63,14 +63,30 @@ const NaturalAreaItemSpeciesList = ({row, index, type}) => {
         dispatch({type: 'CLEAR_FLORA'})
     };
 
+    const displayImage = () => {
+        let display = ''
+        if( !Array.isArray(floraImage) ) {
+            if( floraImage.data.find( x => x.image_url !== null) !== undefined ) {
+                display = <img src={floraImage.data.find( x => x.image_url !== null).image_url}/>
+            }
+            else {
+                display = <p>No Image Available</p>
+            }
+        } else {
+            display = <p>Loading...</p>
+        }
+        return display
+    }
+
     let src = '';
 
     const body = (
         <div style={modalStyle} className={classes.paper}>
         <h2 id="simple-modal-title">{row.cname}</h2>
         <h2>{row.sname}</h2>
-        {!Array.isArray(floraImage) ? <img src={floraImage.data.find( x => x.image_url !== null).image_url}/> : <p>Loading</p>}
+        {displayImage()}
         </div>
+
     );
 
     return (
