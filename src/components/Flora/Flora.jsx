@@ -67,26 +67,22 @@ const Flora = () => {
         let total = [];
         let trees = [];
             for( let i = 0; i < naturalAreas.length; i++ ) {
-                let objectToPush = { id: naturalAreas[i].result.id, trees: naturalAreas[i].result.species.tree_shrub }
+                let objectToPush = { id: naturalAreas[i].result.id, name: naturalAreas[i].result.name, trees: naturalAreas[i].result.species.tree_shrub }
                 trees.push(objectToPush);
             }  
         for( let i = 0; i < 1; i++) {
             for( let j = 0; j < trees[0].trees.length; j++) {
-                total.push({id: [trees[0].id], sname: trees[0].trees[j].sname, cname: trees[0].trees[j].cname, species: 'Tree' })
+                total.push({id: [{id: trees[0].id, name: trees[0].name}], sname: trees[0].trees[j].sname, cname: trees[0].trees[j].cname, species: 'Tree' })
             }
         }
         for( let i = 1; i < trees.length; i++ ) {
             for( let j = 0; j < trees[i].trees.length; j++) {
-                // console.log(trees[i].trees[j].sname.toUpperCase().split('').join(''))
-                // total.some( x => console.log('x.sname', x.sname, 'trees[i].trees[j].sname', trees[i].trees[j].sname));
-                // console.log( total.some( x => console.log( 'x.sname', x.sname) ))
-                // console.log(total.some( x => x.sname.toUpperCase().split('').join('') === trees[i].trees[j].sname.toUpperCase().split('').join('')))
                 if( total.some( x => x.sname.toUpperCase().split('').join('') === trees[i].trees[j].sname.toUpperCase().split('').join(''))) {
                     const index = total.findIndex( x => x.sname.toUpperCase().split('').join('') === trees[i].trees[j].sname.toUpperCase().split('').join(''));
                     console.log( 'in else', index )
-                    total[index].id.push(trees[i].id);
+                    total[index].id.push({id: trees[i].id, name: trees[i].name});
                 } else {
-                    total.push({id: [trees[i].id], sname: trees[i].trees[j].sname, cname: trees[i].trees[j].cname, species: 'Tree' })
+                    total.push({id: [{id: trees[i].id, name: trees[i].name}], sname: trees[i].trees[j].sname, cname: trees[i].trees[j].cname, species: 'Tree' })
                 }
             }
         }
