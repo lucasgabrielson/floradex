@@ -41,7 +41,7 @@ const NaturalAreaItemSpeciesList = ({row, index, type}) => {
         setOpen(false);
     };
 
-    const src = floraImage.data.find( x => x.image_url !== null).image_url
+    // const src = floraImage.data.find( x => x.image_url !== null).image_url
 
     const body = (
         <div style={modalStyle} className={classes.paper}>
@@ -50,7 +50,7 @@ const NaturalAreaItemSpeciesList = ({row, index, type}) => {
         {/* <p id="simple-modal-description">
             Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
         </p> */}
-        <img src={src} />
+        {/* <img src={src} /> */}
         </div>
     );
 
