@@ -5,9 +5,9 @@ import {Link} from 'react-router-dom';
 
 function UserPage() {
   // On component mount get all of the api endpoints with plant information from the database
-  useEffect(() => {
-    dispatch({ type: 'FETCH_DNR_APIS' }); 
-}, []);
+//   useEffect(() => {
+//     dispatch({ type: 'FETCH_DNR_APIS' }); 
+// }, []);
 
   const dispatch = useDispatch();
 
