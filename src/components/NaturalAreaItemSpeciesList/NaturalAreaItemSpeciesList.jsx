@@ -33,23 +33,6 @@ const NaturalAreaItemSpeciesList = ({row, index, type}) => {
     let floraImage = [];
     floraImage = useSelector( store => store.trefleApis);
 
-    function pollDOM () {
-      
-        if (floraImage !== []) {
-          return;
-        } else {
-          setTimeout(pollDOM, 300); // try again in 300 milliseconds
-        }
-      }
-
-    function sleep(milliseconds) {
-        const date = Date.now();
-        let currentDate = null;
-        do {
-            currentDate = Date.now();
-        } while (currentDate - date < milliseconds);
-    }
-
     const handleOpen = () => {
         
         dispatch({type: 'GET_FLORA_IMAGE', payload: row.sname});
