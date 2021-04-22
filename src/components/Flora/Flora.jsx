@@ -33,6 +33,7 @@ const Flora = () => {
 
     useEffect(() => { dispatch({ type: 'PROCESS_NATURAL_AREAS'}) }, []);
 
+
     const dispatch = useDispatch();
 
     // this is the local state for the value of the search bar
@@ -44,7 +45,7 @@ const Flora = () => {
     // this stores whether or not a search has happened 
     const [searched, setSearched] = useState(false);
 
-    const floraByNaturalArea = useSelector( store => store.naturalAreas);
+    const floraByNaturalArea = useSelector( store => store.naturalAreasProcessing);
 
     const displayList = () => {
         let display = <FloraList total={floraByNaturalArea} />
