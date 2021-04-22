@@ -82,7 +82,7 @@ const FloraListItem = ({row, index}) => {
         <div style={modalStyle} className={classes.paper}>
         <h2 id="simple-modal-title">Natural Areas</h2>
         <ul>
-        {Array.isArray(row.id) ? row.id.map( x => <li>{x.name} {x.county}</li>) : ''}
+        {row.id !== undefined ? row.id.map( x => <li>{x.name} {x.county}</li>) : ''}
         </ul>        
         </div>
     );

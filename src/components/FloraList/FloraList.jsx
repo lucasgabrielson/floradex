@@ -7,7 +7,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import NaturalAreaListItem from '../NaturalAreaListItem/NaturalAreaListItem';
 import FloraListItem from '../FloraListItem/FloraListItem';
 
 const useStyles = makeStyles({
@@ -30,9 +29,7 @@ const FloraList = ({total}) => {
                 </TableRow>
                 </TableHead>
                 <TableBody>
-                {total.map((row, index) => (
-                    <FloraListItem row={row} index={index}/>
-                ))}
+                {total !== undefined ? total.map((row, index) => (<FloraListItem row={row} index={index}/>)) : ''}
                 </TableBody>
             </Table>
         </TableContainer>

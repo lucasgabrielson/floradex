@@ -46,8 +46,13 @@ const Flora = () => {
 
     const floraByNaturalArea = useSelector( store => store.naturalAreas);
 
-    
-
+    const displayList = () => {
+        let display = <FloraList total={floraByNaturalArea} />
+        if( searched ) {
+            display = <FloraList total={filtered} />
+        }
+        return display;
+    }
     // handles search function
     const searchForNaturalArea = () => {
         console.log( 'in searchForNaturalArea' );
@@ -59,16 +64,12 @@ const Flora = () => {
         let regex = new RegExp(`${pattern}`, "gi");
         console.log(regex);
         // sets the filtered array equal to the sna's that match the query
-        setFiltered(floraByNaturalArea.filter( area => (area.result.county + ' ' + area.result.name).split('').join('').match(regex)))
+        setFiltered(floraByNaturalArea.filter( row => (row.cname + ' ' + row.sname + ' ' + row.species).match(regex)))
         console.log(filtered);
         // set the search state to the opposite of what it was
         setSearched(!searched);
     }   
     
-    const flora = () => {
-        console.log( 'in flora' );
-        
-    }
     return (
         <div>
             <h1>Flora</h1>
@@ -77,12 +78,13 @@ const Flora = () => {
                     <div className ={classes.searchContainer}>
                         <SearchIcon onClick={() => searchForNaturalArea()} className={classes.searchIcon}/>
                         <TextField onChange={e => setSearch(e.target.value)} />
+                        {JSON.stringify(search)}
                     </div>
                 </Toolbar>
                 {/* {JSON.stringify(naturalAreas.map( x => x.result.species.tree_shrub))} */}
                 {/* {JSON.stringify(flora())} */}      
             </div>
-            {floraByNaturalArea.length ? <FloraList total={floraByNaturalArea}/> : ''}  
+            {floraByNaturalArea.length ? displayList() : ''}  
 
         </div>
     )
