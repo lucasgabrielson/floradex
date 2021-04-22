@@ -32,6 +32,7 @@ const FloraListItem = ({row, index}) => {
     const [open, setOpen] = useState(false);
     const [openSNA, setOpenSNA] = useState(false);
     const dispatch = useDispatch();
+    const history = useHistory();
     let floraImage = [];
     floraImage = useSelector( store => store.trefleApis);
 
@@ -69,6 +70,11 @@ const FloraListItem = ({row, index}) => {
         return display
     }
 
+    const individualPage = (id) => {
+        // dispatch({type: 'FETCH_NATURAL_AREA', payload: row.result.id});
+        history.push(`/natural-area/${id}`, {params: id})
+    }
+
     const body = (
         <div style={modalStyle} className={classes.paper}>
         <h2 id="simple-modal-title">{row.cname}</h2>
@@ -82,7 +88,7 @@ const FloraListItem = ({row, index}) => {
         <div style={modalStyle} className={classes.paper}>
         <h2 id="simple-modal-title">Natural Areas</h2>
         <ul>
-        {row.id !== undefined ? row.id.map( x => <li>{x.name} {x.county}</li>) : ''}
+        {row.id !== undefined ? row.id.map( x => <li onClick={() => individualPage(x.id) }>{x.name} {x.county}</li>) : ''}
         </ul>        
         </div>
     );
