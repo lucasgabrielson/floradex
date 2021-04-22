@@ -39,4 +39,4 @@ const FloraList = ({total}) => {
     );
 }
 
-export default FloraList
+export default React.memo(FloraList)
