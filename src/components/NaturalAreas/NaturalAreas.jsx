@@ -38,11 +38,11 @@ const NaturalAreas = () => {
         // return () => {
         //   window.removeEventListener("beforeunload", alertUser);
         // };
-      }, []);
-      const alertUser = (e) => {
+    }, []);
+    const alertUser = (e) => {
         e.preventDefault();
         e.returnValue = "";
-      };
+    };
     
     // bring in the dnrApis from redux -- this is currently unncessary because I have the information hard
     // wired in the router
