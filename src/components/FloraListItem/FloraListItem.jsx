@@ -30,6 +30,7 @@ const FloraListItem = ({row, index}) => {
     // getModalStyle is not a pure function, we roll the style only on the first render
     const [modalStyle] = useState(getModalStyle);
     const [open, setOpen] = useState(false);
+    const [openSNA, setOpenSNA] = useState(false);
     const dispatch = useDispatch();
     let floraImage = [];
     floraImage = useSelector( store => store.trefleApis);
@@ -40,9 +41,17 @@ const FloraListItem = ({row, index}) => {
         setOpen(true);
     };
 
+    const handleOpenSNA = () => {
+        setOpenSNA(true);
+    };
+
     const handleClose = () => {
         setOpen(false);
         dispatch({type: 'CLEAR_FLORA'})
+    };
+
+    const handleCloseSNA = () => {
+        setOpenSNA(false);
     };
 
     const displayImage = () => {
@@ -69,6 +78,15 @@ const FloraListItem = ({row, index}) => {
 
     );
 
+    const bodyList = (
+        <div style={modalStyle} className={classes.paper}>
+        <h2 id="simple-modal-title">Natural Areas</h2>
+        <ul>
+        {Array.isArray(row.id) ? row.id.map( x => <li>{x.name} {x.county}</li>) : ''}
+        </ul>        
+        </div>
+    );
+
     return (
         <>
             <TableRow key={index}>
@@ -76,7 +94,7 @@ const FloraListItem = ({row, index}) => {
                     {row.cname}
                 </TableCell>
                 <TableCell align="right">{row.species}</TableCell>
-                <TableCell align="right">Natural Areas</TableCell>
+                <TableCell align="right" onClick={handleOpenSNA}>Natural Areas</TableCell>
             </TableRow>
             <Modal
                 open={open}
@@ -85,6 +103,14 @@ const FloraListItem = ({row, index}) => {
                 aria-describedby="simple-modal-description"
                 >
                 {body}
+            </Modal>
+            <Modal
+                open={openSNA}
+                onClose={handleCloseSNA}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                >
+                {bodyList}
             </Modal>
         </>
     )
