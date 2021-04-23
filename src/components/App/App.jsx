@@ -109,54 +109,54 @@ function App() {
             <LandingPage />
           </ProtectedRoute>
           
-          <Route
+          <ProtectedRoute
             exact
             path="/natural-areas"
           >
             <NaturalAreas />
-          </Route>
+          </ProtectedRoute>
 
-          <Route
+          <ProtectedRoute
             exact
             path="/flora"
           >
             <Flora />
-          </Route>
+          </ProtectedRoute>
 
-          <Route
+          <ProtectedRoute
             exact
             path="/natural-area/:id"
           >
             <NaturalAreaItem />
-          </Route>
+          </ProtectedRoute>
 
-          <Route
+          <ProtectedRoute
             exact
             path="/my-hunts/:id"
           >
             <MyHunts />
-          </Route>
+          </ProtectedRoute>
 
-          <Route
+          <ProtectedRoute
             exact
             path="/my-hunts-item/:id"
           >
             <MyHuntsItem />
-          </Route>
+          </ProtectedRoute>
 
-          <Route
+          <ProtectedRoute
             exact
             path="/leaderboard/:id"
           >
             <Leaderboard />
-          </Route>
+          </ProtectedRoute>
 
-          <Route
+          <ProtectedRoute
             exact
             path="/admin"
           >
             <Admin />
-          </Route>
+          </ProtectedRoute>
           
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
