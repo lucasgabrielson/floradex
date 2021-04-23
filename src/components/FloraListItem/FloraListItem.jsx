@@ -1,10 +1,16 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link, useHistory} from 'react-router-dom';
-import TableCell from '@material-ui/core/TableCell';
+import Table from '@material-ui/core/Table';
 import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import TableBody from '@material-ui/core/TableBody';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
+import Paper from '@material-ui/core/Paper';
+
 
 function getModalStyle() {
     return {
@@ -84,13 +90,29 @@ const FloraListItem = ({row, index}) => {
 
     );
 
+
     const bodyList = (
-        <div style={modalStyle} className={classes.paper}>
-        <h2 id="simple-modal-title">Natural Areas</h2>
-        <ul>
-        {row.id !== undefined ? row.id.map( x => <li onClick={() => individualPage(x.id) }>{x.name} {x.county}</li>) : ''}
-        </ul>        
-        </div>
+        <TableContainer style={modalStyle} className={classes.paper} component={Paper}>
+            <Table className={classes.table} aria-label="simple table">
+                <TableHead>
+                <TableRow>
+                    <TableCell>Natural Areas</TableCell>
+                    <TableCell align="right">County</TableCell>
+                    <TableCell align="right">Add to Hunts</TableCell>
+                </TableRow>
+                </TableHead>
+                <TableBody>
+                    {row.id !== undefined ? row.id.map( x => 
+                    <TableRow>
+                        <TableCell onClick={() => individualPage(x.id)}>{x.name}</TableCell>
+                        <TableCell>{x.county}</TableCell>
+                        <TableCell>Add</TableCell>
+                    </TableRow>
+                    ) : '' }               
+                </TableBody>
+            </Table>
+        </TableContainer>
+        
     );
 
     return (
