@@ -4,14 +4,18 @@ import {useSelector, useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
 
 function UserPage() {
-  // On component mount get all of the api endpoints with plant information from the database
-//   useEffect(() => {
-//     dispatch({ type: 'FETCH_DNR_APIS' }); 
-// }, []);
+  useEffect(() => {
+    dispatch({ type: 'CLEAR_PROCESSED_NATURAL_AREAS'})
+    dispatch({ type: 'FETCH_NATURAL_AREAS_FOR_PROCESSING'});
+  }, []);
 
   const dispatch = useDispatch();
 
   const user = useSelector((store) => store.user);
+
+  const flora = useSelector( store => store.naturalAreasProcessing);
+
+
 
   return (
     <>

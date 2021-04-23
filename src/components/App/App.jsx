@@ -119,6 +119,7 @@ function App() {
           <Route
             exact
             path="/flora"
+            // onLeave={ dispatch({ type: 'FETCH_NATURAL_AREAS_FOR_PROCESSING' }) }
           >
             <Flora />
           </Route>

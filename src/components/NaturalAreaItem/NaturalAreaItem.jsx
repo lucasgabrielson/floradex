@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {useParams} from 'react-router-dom';
-import Map from '../Map/Map';
+import MapContainer from '../MapContainer/MapContainer';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -33,9 +33,9 @@ const NaturalAreaItem = () => {
         <div>
             <h1>{!Array.isArray(sna) ? sna.result.name : ''}</h1>
             {/* <Map /> */}
-
+            { !Array.isArray(sna) ? <MapContainer lat={sna.result.parking[0].point.["epsg:4326"][1]} lng={sna.result.parking[0].point.["epsg:4326"][0]}/> : '' }
             {/* <Map lat={sna.result.parking[0].point.["epsg:4326"][1]} long={sna.result.parking[0].point.["epsg:4326"][0]}/> */}
-            {/* {JSON.stringify(sna.result.parking[0].point.["epsg:4326"][1])} */}
+            {/* { JSON.stringify(sna.result.parking[0].point.["epsg:4326"][1]) : ''} */}
             {/* {JSON.stringify(sna.result.species)} */}
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
