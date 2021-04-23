@@ -29,13 +29,24 @@ const useStyles = makeStyles( theme => ({
 
 const NaturalAreas = () => {
     // On component mount make all of the api calls to return the sna objects from the DNR 
+    // useEffect(() => {
+    //     getNaturalAreas()
+    // }, []);
     useEffect(() => {
-        getNaturalAreas()
+        getNaturalAreas();
+        // window.addEventListener("beforeunload", alertUser);
+        // return () => {
+        //   window.removeEventListener("beforeunload", alertUser);
+        // };
     }, []);
+    const alertUser = (e) => {
+        e.preventDefault();
+        e.returnValue = "";
+    };
     
     // bring in the dnrApis from redux -- this is currently unncessary because I have the information hard
     // wired in the router
-    const dnrApis = useSelector((store) => store.dnrApis);
+    // const dnrApis = useSelector((store) => store.dnrApis);
 
     const classes = useStyles();
 
@@ -58,7 +69,7 @@ const NaturalAreas = () => {
         console.log( 'in searchForNaturalArea' );
         // create a regex pattern that looks at each letter of the search query
         let pattern = search.split('').map( x => {
-            return `(?=.*${x})`
+            return `(${x})`
         }).join('');
         // creates a regex based on the search pattern and looks globally and is case insensitive
         let regex = new RegExp(`${pattern}`, "gi");
@@ -72,6 +83,7 @@ const NaturalAreas = () => {
 
     // only pings the api's one time on original page load
     const getNaturalAreas = () => {
+        console.log( 'in getNaturalAreas' );
         let mounted = false;
         if( naturalAreas.length ) {
             mounted = true;

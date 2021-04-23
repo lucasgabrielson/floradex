@@ -1,5 +1,6 @@
-import {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {Link, useHistory} from 'react-router-dom';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
@@ -24,26 +25,34 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const NaturalAreaItemSpeciesList = ({row, index, type}) => {
+const FloraListItem = ({row, index}) => {
     const classes = useStyles();
     // getModalStyle is not a pure function, we roll the style only on the first render
     const [modalStyle] = useState(getModalStyle);
     const [open, setOpen] = useState(false);
+    const [openSNA, setOpenSNA] = useState(false);
     const dispatch = useDispatch();
+    const history = useHistory();
     let floraImage = [];
     floraImage = useSelector( store => store.trefleApis);
 
     const handleOpen = () => {
         
         dispatch({type: 'GET_FLORA_IMAGE', payload: row.sname});
-        // src = ;
-        // src = floraImage.data[0].image_url;
         setOpen(true);
+    };
+
+    const handleOpenSNA = () => {
+        setOpenSNA(true);
     };
 
     const handleClose = () => {
         setOpen(false);
         dispatch({type: 'CLEAR_FLORA'})
+    };
+
+    const handleCloseSNA = () => {
+        setOpenSNA(false);
     };
 
     const displayImage = () => {
@@ -61,26 +70,37 @@ const NaturalAreaItemSpeciesList = ({row, index, type}) => {
         return display
     }
 
-    let src = '';
+    const individualPage = (id) => {
+        // dispatch({type: 'FETCH_NATURAL_AREA', payload: row.result.id});
+        history.push(`/natural-area/${id}`, {params: id})
+    }
 
     const body = (
         <div style={modalStyle} className={classes.paper}>
         <h2 id="simple-modal-title">{row.cname}</h2>
         <h2>{row.sname}</h2>
-
         {displayImage()}
         </div>
 
     );
 
+    const bodyList = (
+        <div style={modalStyle} className={classes.paper}>
+        <h2 id="simple-modal-title">Natural Areas</h2>
+        <ul>
+        {row.id !== undefined ? row.id.map( x => <li onClick={() => individualPage(x.id) }>{x.name} {x.county}</li>) : ''}
+        </ul>        
+        </div>
+    );
+
     return (
         <>
             <TableRow key={index}>
-                <TableCell component="th" scope="row">
+                <TableCell component="th" scope="row" onClick={handleOpen}>
                     {row.cname}
                 </TableCell>
-                <TableCell align="right">{type}</TableCell>
-                <TableCell align="right" onClick={handleOpen}>{'Details'}</TableCell>
+                <TableCell align="right">{row.species}</TableCell>
+                <TableCell align="right" onClick={handleOpenSNA}>Natural Areas</TableCell>
             </TableRow>
             <Modal
                 open={open}
@@ -90,8 +110,16 @@ const NaturalAreaItemSpeciesList = ({row, index, type}) => {
                 >
                 {body}
             </Modal>
+            <Modal
+                open={openSNA}
+                onClose={handleCloseSNA}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                >
+                {bodyList}
+            </Modal>
         </>
     )
 }
 
-export default NaturalAreaItemSpeciesList
+export default FloraListItem

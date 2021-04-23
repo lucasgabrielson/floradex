@@ -21,7 +21,7 @@ const NaturalAreaListItem = ({row, index}) => {
 
     let displayed = false; 
 
-    console.log('pos', pos, 'of:', row.result.id);
+    // console.log('pos', pos, 'of:', row.result.id);
 
     const history = useHistory();
 

@@ -6,7 +6,6 @@ function* naturalAreas(action) {
         try {
             console.log( 'in naturalAreas' );
             const response = yield axios.get('/api/natural-areas/' + i);
-            yield put({ type: 'SET_NATURAL_AREAS', payload: response.data });
             yield put({ type: 'SET_NATURAL_AREAS_FOR_PROCESSING', payload: response.data });
         } catch (error) {
             console.log('Error getting natural areas from dnr api', error);
@@ -14,19 +13,8 @@ function* naturalAreas(action) {
     }
 }
 
-function* naturalArea(action) {
-    try {
-        console.log( 'in naturalArea' );
-        const response = yield axios.get(`/api/natural-areas/?id=${action.payload}`)
-        yield put({ type: 'SET_NATURAL_AREA', payload: response.data });
-    } catch ( error ) {
-        console.log('Error getting natural area from dnr api', error)
-    }
-}
-
 function* naturalAreasSaga() {
-    yield takeLatest('FETCH_NATURAL_AREAS', naturalAreas);
-    yield takeLatest('FETCH_NATURAL_AREA', naturalArea);
+    yield takeLatest('FETCH_NATURAL_AREAS_FOR_PROCESSING', naturalAreas);
 }
 
 export default naturalAreasSaga;
