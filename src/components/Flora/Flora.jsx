@@ -79,7 +79,6 @@ const Flora = () => {
                     <div className ={classes.searchContainer}>
                         <SearchIcon onClick={() => searchForNaturalArea()} className={classes.searchIcon}/>
                         <TextField onChange={e => setSearch(e.target.value)} />
-                        {JSON.stringify(search)}
                     </div>
                 </Toolbar>
                 {/* {JSON.stringify(naturalAreas.map( x => x.result.species.tree_shrub))} */}

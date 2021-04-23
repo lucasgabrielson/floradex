@@ -19,7 +19,8 @@ CREATE TABLE user_hunts (
 	"user_id" INT NOT NULL,
 	FOREIGN KEY (user_id) REFERENCES "user"(id),
 	"natural_area_id" VARCHAR(400),
-	FOREIGN KEY (natural_area_id) REFERENCES natural_areas(dnr_api)
+	FOREIGN KEY (natural_area_id) REFERENCES natural_areas(dnr_api),
+	"displayed" BOOLEAN DEFAULT true
 );
 
 CREATE TABLE natural_areas_hunts_flora (
@@ -31,6 +32,6 @@ CREATE TABLE natural_areas_hunts_flora (
 	"natural_area_id" VARCHAR(400),
 	FOREIGN KEY (natural_area_id) REFERENCES natural_areas(dnr_api),
     image VARCHAR(255),
-	found BOOLEAN,
-	substantiated BOOLEAN
+	found BOOLEAN DEFAULT true,
+	substantiated BOOLEAN DEFAULT false
 );
