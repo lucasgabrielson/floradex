@@ -22,9 +22,9 @@ In order to accomplish this I used the MN DNR Api, the Google Maps Api, and the 
 
 ## Screen Shot
 
-![plot](documentation/images/Screen Shot 2021-04-22 at 10.31.26 PM.png)
-![plot](documentation/images/Screen Shot 2021-04-22 at 10.31.48 PM.png)
-![plot](documentation/images/Screen Shot 2021-04-22 at 10.32.01 PM.png)
+<img width="1440" alt="Screen Shot 2021-04-22 at 10 31 26 PM" src="https://user-images.githubusercontent.com/74149109/115877364-f7ddc080-a40c-11eb-983d-642e8f15cedc.png">
+<img width="1440" alt="Screen Shot 2021-04-22 at 10 31 48 PM" src="https://user-images.githubusercontent.com/74149109/115877368-f9a78400-a40c-11eb-83ff-3dceb785bad8.png">
+<img width="1434" alt="Screen Shot 2021-04-22 at 10 32 01 PM" src="https://user-images.githubusercontent.com/74149109/115877374-fa401a80-a40c-11eb-8e6c-1a6f20761fec.png">
 
 ### Prerequisites
 
