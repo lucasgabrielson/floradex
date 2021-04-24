@@ -64,7 +64,7 @@ const MyHunts = () => {
         <>
             <h1>My Hunts</h1>
             {fetchTableData()}
-            {/* <TableContainer className={classes.paper} component={Paper}>
+            <TableContainer className={classes.paper} component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                     <TableRow>
@@ -74,19 +74,19 @@ const MyHunts = () => {
                     </TableRow>
                     </TableHead>
                     <TableBody>
-                        {myHuntItems === myHunts.length && myHuntItems.map( x => 
+                        {hunts.length && found.map( x => 
                         <TableRow>
-                            <TableCell >{x.result.name}</TableCell>
+                            <TableCell>{x.result.name}</TableCell>
                             <TableCell>{x.result.county}</TableCell>
                             <TableCell>X</TableCell>
                         </TableRow>
                         )}               
                     </TableBody>
                 </Table>
-            </TableContainer> */}
+            </TableContainer>
             {/* {naturalAreas !== undefined ? JSON.stringify(naturalAreas[0].result.id) : ''} */}
             {/* {myHunts !== undefined ? JSON.stringify(hunts) : ''} */}
-            {hunts.length ? JSON.stringify(found[1].result.name) : ''}
+            {/* {hunts.length ? JSON.stringify(found[1].result.name) : ''} */}
         </>
     )
 }
