@@ -23,6 +23,7 @@ CREATE TABLE user_hunts (
 	"displayed" BOOLEAN DEFAULT true
 );
 
+
 CREATE TABLE natural_areas_hunts_flora (
 	"id" SERIAL PRIMARY KEY,
 	common_name VARCHAR(255),

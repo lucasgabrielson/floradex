@@ -67,6 +67,7 @@ const NaturalAreaItemSpeciesList = ({row, index, type}) => {
         <div style={modalStyle} className={classes.paper}>
         <h2 id="simple-modal-title">{row.cname}</h2>
         <h2>{row.sname}</h2>
+
         {displayImage()}
         </div>
 
