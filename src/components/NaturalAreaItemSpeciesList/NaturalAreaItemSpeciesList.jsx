@@ -4,6 +4,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
+import UploadImageToS3WithReactS3 from '../UploadImageToS3WithReactS3/UploadImageToS3WithReactS3';
 
 function getModalStyle() {
     return {
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const NaturalAreaItemSpeciesList = ({row, index, type}) => {
+const NaturalAreaItemSpeciesList = ({row, index, type, source}) => {
     const classes = useStyles();
     // getModalStyle is not a pure function, we roll the style only on the first render
     const [modalStyle] = useState(getModalStyle);
@@ -45,6 +46,14 @@ const NaturalAreaItemSpeciesList = ({row, index, type}) => {
         setOpen(false);
         dispatch({type: 'CLEAR_FLORA'})
     };
+
+    const handleImageOpen = () => {
+        setOpen(true);
+    }
+
+    const handleImageClose = () => {
+        setOpen(false);
+    }
 
     const displayImage = () => {
         let display = ''
@@ -72,23 +81,53 @@ const NaturalAreaItemSpeciesList = ({row, index, type}) => {
 
     );
 
+    const imageBody = (
+        <div style={modalStyle} className={classes.paper}>
+        <h2 id="simple-modal-title">Choose Image</h2>
+        <UploadImageToS3WithReactS3 />
+        </div>
+
+    );
+
     return (
-        <>
-            <TableRow key={index}>
-                <TableCell component="th" scope="row">
-                    {row.cname}
-                </TableCell>
-                <TableCell align="right">{type}</TableCell>
-                <TableCell align="right" onClick={handleOpen}>{'Details'}</TableCell>
-            </TableRow>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="simple-modal-title"
-                aria-describedby="simple-modal-description"
-                >
-                {body}
-            </Modal>
+        <>  { source ? 
+                <>
+                    <TableRow key={index}>
+                        <TableCell component="th" scope="row">
+                            {row.cname}
+                        </TableCell>
+                        <TableCell align="right">{type}</TableCell>
+                        <TableCell align="right">{'Details'}</TableCell>
+                        <TableCell align="right" onClick={handleImageOpen}>Add</TableCell>
+                    </TableRow>
+                    <Modal
+                        open={open}
+                        onClose={handleImageClose}
+                        aria-labelledby="simple-modal-title"
+                        aria-describedby="simple-modal-description"
+                        >
+                        {imageBody}
+                    </Modal>
+                </>
+            :
+                <>
+                    <TableRow key={index}>
+                        <TableCell component="th" scope="row">
+                            {row.cname}
+                        </TableCell>
+                        <TableCell align="right">{type}</TableCell>
+                        <TableCell align="right" onClick={handleOpen}>{'Details'}</TableCell>
+                    </TableRow>
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="simple-modal-title"
+                        aria-describedby="simple-modal-description"
+                        >
+                        {body}
+                    </Modal>
+                </>
+            }  
         </>
     )
 }
