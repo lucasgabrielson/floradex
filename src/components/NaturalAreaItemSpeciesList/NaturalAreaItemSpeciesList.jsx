@@ -84,7 +84,7 @@ const NaturalAreaItemSpeciesList = ({row, index, type, source}) => {
     const imageBody = (
         <div style={modalStyle} className={classes.paper}>
         <h2 id="simple-modal-title">Choose Image</h2>
-        <UploadImageToS3WithReactS3 id={row.id}/>
+        <UploadImageToS3WithReactS3 setOpen={setOpen}/>
         </div>
 
     );
