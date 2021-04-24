@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Paper from '@material-ui/core/Paper';
 import {useParams} from 'react-router-dom';
+import swal from 'sweetalert';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -72,7 +73,22 @@ const MyHunts = () => {
         endpoint: endpoint,
         displayed: false
         }
-        dispatch({ type: 'UPDATE_HUNTS', payload: objectToSend })
+        swal({
+            title: 'Are you sure you want to remove this hunt?',
+            // text: '. . . forever?',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true
+        }).then( willDelete => {
+            if( willDelete ) {
+                swal( 'Removed!', {
+                    icon: 'success',
+                });
+                dispatch({ type: 'UPDATE_HUNTS', payload: objectToSend })
+            } else {
+                swal( 'Removal Cancelled' );
+            }});
+        
     }
 
     return (
