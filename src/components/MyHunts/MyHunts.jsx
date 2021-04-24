@@ -59,6 +59,10 @@ const MyHunts = () => {
 
     const myHuntItems = useSelector( store => store.userHuntItems);
 
+    const history = useHistory();
+    const individualPage = (id) => {
+        history.push(`/my-hunts-item/${id}`, {params: id})
+    }
 
     return (
         <>
@@ -76,7 +80,7 @@ const MyHunts = () => {
                     <TableBody>
                         {hunts.length && found.map( x => 
                         <TableRow>
-                            <TableCell>{x.result.name}</TableCell>
+                            <TableCell onClick={() => individualPage(x.result.id)}>{x.result.name}</TableCell>
                             <TableCell>{x.result.county}</TableCell>
                             <TableCell>X</TableCell>
                         </TableRow>
