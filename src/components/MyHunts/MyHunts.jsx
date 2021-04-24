@@ -33,6 +33,8 @@ const MyHunts = () => {
 
     const id = useParams();
 
+    const user = useSelector((store) => store.user);
+
     const myHunts = useSelector( store => store.userHunts);
 
     const naturalAreas = useSelector( store => store.naturalAreas );
@@ -64,6 +66,15 @@ const MyHunts = () => {
         history.push(`/my-hunts-item/${id}`, {params: id})
     }
 
+    const removeFromHunts = (endpoint) => {
+        const objectToSend = {
+        id: user.id,
+        endpoint: endpoint,
+        displayed: false
+        }
+        dispatch({ type: 'UPDATE_HUNTS', payload: objectToSend })
+    }
+
     return (
         <>
             <h1>My Hunts</h1>
@@ -82,7 +93,7 @@ const MyHunts = () => {
                         <TableRow>
                             <TableCell onClick={() => individualPage(x.result.id)}>{x.result.name}</TableCell>
                             <TableCell>{x.result.county}</TableCell>
-                            <TableCell>X</TableCell>
+                            <TableCell onClick={() => removeFromHunts(x.result.id)}>X</TableCell>
                         </TableRow>
                         )}               
                     </TableBody>
