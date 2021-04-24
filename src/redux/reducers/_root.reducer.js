@@ -7,6 +7,7 @@ import userHunts from './userHunts.reducer';
 import naturalArea from './naturalArea.reducer';
 import trefleApis from './trefleApis.reducer';
 import naturalAreasProcessing from './naturalAreasProcessing.reducer';
+import userHuntItems from './userHuntItems.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   naturalArea,
   trefleApis,
   naturalAreasProcessing,
+  userHuntItems,
 });
 
 export default rootReducer;

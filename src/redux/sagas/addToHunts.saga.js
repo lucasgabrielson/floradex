@@ -30,12 +30,22 @@ function* getHunts(action) {
         console.log('Error getting my hunts', error);
     }
 }
+function* fetchHuntItems(action) {
+    try {
+        console.log( 'fetchHuntItems', action.payload );
+        const response = yield axios.get(`/api/natural-areas/?id=${action.payload}`)
+        yield put({ type: 'SET_USER_HUNT_ITEMS', payload: response.data} )
+    } catch (error) {
+        console.log('Error getting my hunts', error);
+    }
+}
 
 
 function* addToHuntsSaga() {
     yield takeLatest('ADD_TO_HUNTS', addToHunts);
     yield takeLatest('UPDATE_HUNTS', updateHunts);
-    yield takeLatest('GET_MY_HUNTS', getHunts)
+    yield takeLatest('GET_MY_HUNTS', getHunts);
+    yield takeLatest('FETCH_MY_HUNT_ITEMS', fetchHuntItems)
 }
 
 export default addToHuntsSaga;
