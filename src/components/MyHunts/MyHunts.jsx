@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Paper from '@material-ui/core/Paper';
 import {useParams} from 'react-router-dom';
+import swal from 'sweetalert';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -32,6 +33,8 @@ const MyHunts = () => {
     useEffect(() => { dispatch({type: 'GET_MY_HUNTS', payload: id.id}) }, []);
 
     const id = useParams();
+
+    const user = useSelector((store) => store.user);
 
     const myHunts = useSelector( store => store.userHunts);
 
@@ -64,6 +67,30 @@ const MyHunts = () => {
         history.push(`/my-hunts-item/${id}`, {params: id})
     }
 
+    const removeFromHunts = (endpoint) => {
+        const objectToSend = {
+        id: user.id,
+        endpoint: endpoint,
+        displayed: false
+        }
+        swal({
+            title: 'Are you sure you want to remove this hunt?',
+            // text: '. . . forever?',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true
+        }).then( willDelete => {
+            if( willDelete ) {
+                swal( 'Removed!', {
+                    icon: 'success',
+                });
+                dispatch({ type: 'UPDATE_HUNTS', payload: objectToSend })
+            } else {
+                swal( 'Removal Cancelled' );
+            }});
+        
+    }
+
     return (
         <>
             <h1>My Hunts</h1>
@@ -82,7 +109,7 @@ const MyHunts = () => {
                         <TableRow>
                             <TableCell onClick={() => individualPage(x.result.id)}>{x.result.name}</TableCell>
                             <TableCell>{x.result.county}</TableCell>
-                            <TableCell>X</TableCell>
+                            <TableCell onClick={() => removeFromHunts(x.result.id)}>X</TableCell>
                         </TableRow>
                         )}               
                     </TableBody>
