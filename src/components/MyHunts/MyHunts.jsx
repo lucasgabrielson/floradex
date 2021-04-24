@@ -48,7 +48,7 @@ const MyHunts = () => {
     const fetchTableData = () => {
         
         for( let i = 0; i < hunts.length; i++) {
-             found = [...found, naturalAreas.find( row => row.result.id === hunts[i].natural_area_id.slice(53))];
+            found = [...found, naturalAreas.find( row => row.result.id === hunts[i].natural_area_id.slice(53))];
         }
         // if(!fetched) {
         //     console.log( 'in displayTable');
