@@ -1,6 +1,6 @@
 import React , {useState} from 'react';
 import { uploadFile } from 'react-s3';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
@@ -16,8 +16,8 @@ import swal from 'sweetalert';
 
 const S3_BUCKET ='floradex';
 const REGION ='us-east-2';
-const ACCESS_KEY ='AKIA5DNS5D5JVI6LTMWT';
-const SECRET_ACCESS_KEY ='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';
+const ACCESS_KEY = process.env.REACT_APP_AWSAccessKeyId;
+const SECRET_ACCESS_KEY = process.env.REACT_APP_AWSSecretKey;
 
 
 const config = {
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UploadImageToS3WithReactS3 = ({setOpen}) => {
+const UploadImageToS3WithReactS3 = ({setOpen, id, sname, cname, endpoint}) => {
 
     const classes = useStyles();
     const [loading, setLoading] = React.useState(false);
@@ -79,6 +79,8 @@ const UploadImageToS3WithReactS3 = ({setOpen}) => {
     const dispatch = useDispatch();
 
     const history = useHistory();
+
+    const user = useSelector( store => store.user)
 
     const [selectedFile, setSelectedFile] = useState(null);
 
@@ -113,7 +115,15 @@ const UploadImageToS3WithReactS3 = ({setOpen}) => {
                         setOpen(false);
                         setImagePreviewUrl(null)
                         setSelectedFile(null)
-                // dispatch({ type: 'SET_FLORA_IMAGE', payload: data.location})
+                        const objectToSend = {
+                            image: data.location,
+                            cname: cname,
+                            sname: sname,
+                            endpoint: id,
+                            id: user.id
+
+                        }
+                        dispatch({ type: 'SET_MY_HUNTS_FLORA_IMAGE', payload: objectToSend})
                 }).catch( err => {
                     console.log( err );
                 })

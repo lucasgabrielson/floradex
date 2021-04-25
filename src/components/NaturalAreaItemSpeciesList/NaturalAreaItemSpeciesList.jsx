@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const NaturalAreaItemSpeciesList = ({row, index, type, source}) => {
+const NaturalAreaItemSpeciesList = ({row, index, type, source, id}) => {
     const classes = useStyles();
     // getModalStyle is not a pure function, we roll the style only on the first render
     const [modalStyle] = useState(getModalStyle);
@@ -57,6 +57,7 @@ const NaturalAreaItemSpeciesList = ({row, index, type, source}) => {
 
     const displayImage = () => {
         let display = ''
+        console.log( 'this is floraImage, you sandbagging SOB', floraImage)
         if( !Array.isArray(floraImage) ) {
             if( floraImage.data.find( x => x.image_url !== null) !== undefined ) {
                 display = <img src={floraImage.data.find( x => x.image_url !== null).image_url}/>
@@ -84,7 +85,7 @@ const NaturalAreaItemSpeciesList = ({row, index, type, source}) => {
     const imageBody = (
         <div style={modalStyle} className={classes.paper}>
         <h2 id="simple-modal-title">Choose Image</h2>
-        <UploadImageToS3WithReactS3 setOpen={setOpen}/>
+        <UploadImageToS3WithReactS3 setOpen={setOpen} sname={row.sname} cname={row.cname} id={id} />
         </div>
 
     );

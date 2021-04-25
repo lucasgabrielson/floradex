@@ -106,22 +106,22 @@ const MyHuntsItem = () => {
                     </TableHead>
                     <TableBody>
                         {!Array.isArray(sna) && !searched ?
-                        sna.result.species.tree_shrub.map((row, index) => <NaturalAreaItemSpeciesList row={row} index={index} type={'Tree'} source={true}/>)
+                        sna.result.species.tree_shrub.map((row, index) => <NaturalAreaItemSpeciesList row={row} index={index} type={'Tree'} source={true} id={id.id}/>)
                         : '' }
                         {!Array.isArray(sna) && !searched  ?
-                        sna.result.species.grass_sedge.map((row, index) => <NaturalAreaItemSpeciesList row={row} index={index} type={'Grass'} source={true}/>)
+                        sna.result.species.grass_sedge.map((row, index) => <NaturalAreaItemSpeciesList row={row} index={index} type={'Grass'} source={true} id={id.id}/>)
                         : '' }
                         {!Array.isArray(sna) && !searched ?
-                        sna.result.species.wildflower.map((row, index) => <NaturalAreaItemSpeciesList row={row} index={index} type={'Wildflower'} source={true}/>)
+                        sna.result.species.wildflower.map((row, index) => <NaturalAreaItemSpeciesList row={row} index={index} type={'Wildflower'} source={true} id={id.id}/>)
                         : '' }
                         {!Array.isArray(sna) && searched ?
-                        filteredTree.map((row, index) => <NaturalAreaItemSpeciesList row={row} index={index} type={'Tree'} source={true}/>)
+                        filteredTree.map((row, index) => <NaturalAreaItemSpeciesList row={row} index={index} type={'Tree'} source={true} id={id.id}/>)
                         : '' }
                         {!Array.isArray(sna) && searched  ?
-                        filteredGrass.map((row, index) => <NaturalAreaItemSpeciesList row={row} index={index} type={'Grass'} source={true}/>)
+                        filteredGrass.map((row, index) => <NaturalAreaItemSpeciesList row={row} index={index} type={'Grass'} source={true} id={id.id}/>)
                         : '' }
                         {!Array.isArray(sna) && searched ?
-                        filteredWildflower.map((row, index) => <NaturalAreaItemSpeciesList row={row} index={index} type={'Wildflower'} source={true}/>)
+                        filteredWildflower.map((row, index) => <NaturalAreaItemSpeciesList row={row} index={index} type={'Wildflower'} source={true} id={id.id}/>)
                         : '' }
                         
                     </TableBody>

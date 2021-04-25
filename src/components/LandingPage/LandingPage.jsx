@@ -7,7 +7,7 @@ import './LandingPage.css';
 import RegisterForm from '../RegisterForm/RegisterForm';
 
 function LandingPage() {
-  useEffect(() => { dispatch({ type: 'FETCH_NATURAL_AREAS' }); }, []);
+  // useEffect(() => { dispatch({ type: 'FETCH_NATURAL_AREAS' }); }, []);
   const [heading, setHeading] = useState('Welcome');
   const history = useHistory();
   const dispatch = useDispatch();

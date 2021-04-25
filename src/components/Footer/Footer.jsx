@@ -23,6 +23,9 @@ function Footer() {
       <Link to = {`/my-hunts/${user.id}`} params={user.id}>
         <button>My Hunts</button>
       </Link>
+      <Link to = {`/leaderboard/${user.id}`} params={user.id}>
+        <button>Leaderboard</button>
+      </Link>
       &copy; L. Clay Gabrielson
       </footer>
     </>
