@@ -13,7 +13,9 @@ const dnrApisRouter = require('./routes/dnr-apis');
 const naturalAreasRouter = require('./routes/natural-areas');
 const myHuntsRouter = require('./routes/my-hunts');
 const trefleApisRouter = require('./routes/trefle-apis');
-const huntsFlora = require('./routes/hunts-flora.router');
+const huntsFloraRouter = require('./routes/hunts-flora.router');
+const leaderboardRouter = require('./routes/leaderboard.router');
+const adminRouter = require('./routes/admin.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -30,9 +32,11 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 app.use('/api/dnr-apis', dnrApisRouter);
 app.use('/api/natural-areas', naturalAreasRouter);
-app.use('/api/my-hunts/', myHuntsRouter)
+app.use('/api/my-hunts/', myHuntsRouter);
 app.use('/api/trefle-apis/', trefleApisRouter);
-app.use('/api/hunts-flora/', huntsFlora)
+app.use('/api/hunts-flora/', huntsFloraRouter);
+app.use('/api/leaderboard', leaderboardRouter);
+app.use('/api/admin', adminRouter);
 
 // Serve static files
 app.use(express.static('build'));

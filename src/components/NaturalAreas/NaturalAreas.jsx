@@ -33,7 +33,7 @@ const NaturalAreas = () => {
     //     getNaturalAreas()
     // }, []);
     useEffect(() => {
-        getNaturalAreas();
+        // getNaturalAreas();
         // window.addEventListener("beforeunload", alertUser);
         // return () => {
         //   window.removeEventListener("beforeunload", alertUser);
@@ -82,16 +82,16 @@ const NaturalAreas = () => {
     }
 
     // only pings the api's one time on original page load
-    const getNaturalAreas = () => {
-        console.log( 'in getNaturalAreas' );
-        let mounted = false;
-        if( naturalAreas.length ) {
-            mounted = true;
-        }
-        if( !mounted ) {
-            dispatch({ type: 'FETCH_NATURAL_AREAS' });
-        }
-    }
+    // const getNaturalAreas = () => {
+    //     console.log( 'in getNaturalAreas' );
+    //     let mounted = false;
+    //     if( naturalAreas.length ) {
+    //         mounted = true;
+    //     }
+    //     if( !mounted ) {
+    //         dispatch({ type: 'FETCH_NATURAL_AREAS' });
+    //     }
+    // }
 
     // conditionally renders the list of all natural areas or the filtered natural areas
     const displayList = () => {
