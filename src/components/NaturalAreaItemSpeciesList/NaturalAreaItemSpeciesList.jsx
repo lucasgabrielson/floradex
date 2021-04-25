@@ -57,7 +57,6 @@ const NaturalAreaItemSpeciesList = ({row, index, type, source, id}) => {
 
     const displayImage = () => {
         let display = ''
-        console.log( 'this is floraImage, you sandbagging SOB', floraImage)
         if( !Array.isArray(floraImage) ) {
             if( floraImage.data.find( x => x.image_url !== null) !== undefined ) {
                 display = <img src={floraImage.data.find( x => x.image_url !== null).image_url}/>

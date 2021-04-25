@@ -21,8 +21,9 @@ const naturalAreas = (state = [], action) => {
         }
         for( let i = 1; i < trees.length; i++ ) {
             for( let j = 0; j < trees[i].trees.length; j++) {
+                // || wildflowers[i].id === 'sna01004' || wildflowers[i].id === 'sna02062'
                 // The plants in Lester Lake SNA have sname and cname reversed so we must check this case separately
-                if( trees[i].id === 'sna02046') {
+                if( trees[i].id === 'sna02046' ) {
                     if( treesFiltered.some( x => x.sname.toUpperCase() === trees[i].trees[j].cname.toUpperCase())) {
                         const index = treesFiltered.findIndex( x => x.sname.toUpperCase().split('').join('') === trees[i].trees[j].cname.toUpperCase().split('').join(''));
                         treesFiltered[index].id.push({id: trees[i].id, name: trees[i].name, county: trees[i].county});
@@ -84,7 +85,7 @@ const naturalAreas = (state = [], action) => {
         }
         for( let i = 1; i < wildflowers.length; i++ ) {
             for( let j = 0; j < wildflowers[i].wildflowers.length; j++) {
-                if( wildflowers[i].id === 'sna02046') {
+                if( wildflowers[i].id === 'sna02046' ) {
                     if( wildflowersFiltered.some( x => x.sname.toUpperCase() === wildflowers[i].wildflowers[j].cname.toUpperCase())) {
                         const index = wildflowersFiltered.findIndex( x => x.sname.toUpperCase().split('').join('') === wildflowers[i].wildflowers[j].cname.toUpperCase().split('').join(''));
                         wildflowersFiltered[index].id.push({id: wildflowers[i].id, name: wildflowers[i].name, county: wildflowers[i].county });

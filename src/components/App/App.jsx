@@ -35,6 +35,7 @@ function App() {
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
     dispatch({ type: 'FETCH_NATURAL_AREAS' });
+    // dispatch({ type: 'FETCH_NATURAL_AREAS_FOR_PROCESSING' });
   }, [dispatch]);
 
 
