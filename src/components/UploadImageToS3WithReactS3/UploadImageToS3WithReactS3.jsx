@@ -1,14 +1,23 @@
 import React , {useState} from 'react';
 import { uploadFile } from 'react-s3';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { green } from '@material-ui/core/colors';
+import Fab from '@material-ui/core/Fab';
+import CheckIcon from '@material-ui/icons/Check';
+import SaveIcon from '@material-ui/icons/Save';
 import swal from 'sweetalert';
 
 
 const S3_BUCKET ='floradex';
 const REGION ='us-east-2';
-const ACCESS_KEY ='AKIA5DNS5D5JVI6LTMWT';
-const SECRET_ACCESS_KEY ='';
+const ACCESS_KEY = process.env.REACT_APP_AWSAccessKeyId;
+const SECRET_ACCESS_KEY = process.env.REACT_APP_AWSSecretKey;
 
 
 const config = {
@@ -18,17 +27,64 @@ const config = {
     secretAccessKey: SECRET_ACCESS_KEY,
 }
 
-const UploadImageToS3WithReactS3 = ({id}) => {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  wrapper: {
+    margin: theme.spacing(1),
+    position: 'relative',
+  },
+  buttonSuccess: {
+    backgroundColor: green[500],
+    '&:hover': {
+      backgroundColor: green[700],
+    },
+  },
+  fabProgress: {
+    color: green[500],
+    position: 'absolute',
+    top: -6,
+    left: -6,
+    zIndex: 1,
+  },
+  buttonProgress: {
+    color: green[500],
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginTop: -12,
+    marginLeft: -12,
+  },
+}));
+
+const UploadImageToS3WithReactS3 = ({setOpen, id, sname, cname, endpoint}) => {
+
+    const classes = useStyles();
+    const [loading, setLoading] = React.useState(false);
+    const [success, setSuccess] = React.useState(false);
+    const timer = React.useRef();
+
+    const buttonClassname = clsx({
+        [classes.buttonSuccess]: success,
+    });
+
+    React.useEffect(() => {
+        return () => {
+        clearTimeout(timer.current);
+        };
+    }, []);
 
     const dispatch = useDispatch();
 
     const history = useHistory();
 
+    const user = useSelector( store => store.user)
+
     const [selectedFile, setSelectedFile] = useState(null);
 
     const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
-
-    const [open, setOpen] = useState(true);
 
     const handleFileInput = event => {
         setSelectedFile(event.target.files[0]);
@@ -43,19 +99,31 @@ const UploadImageToS3WithReactS3 = ({id}) => {
     }
 
     const handleUpload = async (file) => {
-        if(open) alert('Loading...');
+        if (!loading) {
+            setSuccess(false);
+            setLoading(true);
+        }
         uploadFile(file, config)
             .then( data => {
-                setOpen(false)
+                setSuccess(true);
+                setLoading(false);
                 console.log( data );
                 swal({
                     title: 'Successful Upload!',
                     icon: 'success',
                 }).then( _ => {
+                        setOpen(false);
                         setImagePreviewUrl(null)
-                        // setSelectedFile(null)
-                // history.push(`/my-hunts-item/${id}`, {params: id})
-                // dispatch({ type: 'SET_FLORA_IMAGE', payload: data.location})
+                        setSelectedFile(null)
+                        const objectToSend = {
+                            image: data.location,
+                            cname: cname,
+                            sname: sname,
+                            endpoint: id,
+                            id: user.id
+
+                        }
+                        dispatch({ type: 'SET_MY_HUNTS_FLORA_IMAGE', payload: objectToSend})
                 }).catch( err => {
                     console.log( err );
                 })
@@ -64,12 +132,26 @@ const UploadImageToS3WithReactS3 = ({id}) => {
             })
     }
 
-    return <div>
-        <div>React S3 File Upload</div>
-        <input type="file" onChange={handleFileInput}/>
-        {selectedFile !== null && <img src={imagePreviewUrl}/>}
-        <button onClick={() => handleUpload(selectedFile)}> Upload to S3</button>
-    </div>
+    return (
+        <>
+            <Input type="file" onChange={handleFileInput}/>
+            {selectedFile !== null && <img src={imagePreviewUrl}/>}
+            <div className={classes.root}>
+                
+                <div className={classes.wrapper}>
+                    <Fab
+                    aria-label="save"
+                    color="primary"
+                    className={buttonClassname}
+                    onClick={() => handleUpload(selectedFile)}
+                    >
+                    {success ? <CheckIcon /> : <SaveIcon />}
+                    </Fab>
+                    {loading && <CircularProgress size={68} className={classes.fabProgress} />}
+                </div>
+            </div>
+        </>
+    )
 }
 
 export default UploadImageToS3WithReactS3;
@@ -136,3 +218,103 @@ export default UploadImageToS3WithReactS3;
 // }
  
 // export default App;
+
+
+// import React from 'react';
+// import clsx from 'clsx';
+// import { makeStyles } from '@material-ui/core/styles';
+// import CircularProgress from '@material-ui/core/CircularProgress';
+// import { green } from '@material-ui/core/colors';
+// import Button from '@material-ui/core/Button';
+// import Fab from '@material-ui/core/Fab';
+// import CheckIcon from '@material-ui/icons/Check';
+// import SaveIcon from '@material-ui/icons/Save';
+
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     display: 'flex',
+//     alignItems: 'center',
+//   },
+//   wrapper: {
+//     margin: theme.spacing(1),
+//     position: 'relative',
+//   },
+//   buttonSuccess: {
+//     backgroundColor: green[500],
+//     '&:hover': {
+//       backgroundColor: green[700],
+//     },
+//   },
+//   fabProgress: {
+//     color: green[500],
+//     position: 'absolute',
+//     top: -6,
+//     left: -6,
+//     zIndex: 1,
+//   },
+//   buttonProgress: {
+//     color: green[500],
+//     position: 'absolute',
+//     top: '50%',
+//     left: '50%',
+//     marginTop: -12,
+//     marginLeft: -12,
+//   },
+// }));
+
+// export default function CircularIntegration() {
+//   const classes = useStyles();
+//   const [loading, setLoading] = React.useState(false);
+//   const [success, setSuccess] = React.useState(false);
+//   const timer = React.useRef();
+
+//   const buttonClassname = clsx({
+//     [classes.buttonSuccess]: success,
+//   });
+
+//   React.useEffect(() => {
+//     return () => {
+//       clearTimeout(timer.current);
+//     };
+//   }, []);
+
+//   const handleButtonClick = () => {
+//     if (!loading) {
+//       setSuccess(false);
+//       setLoading(true);
+//       timer.current = window.setTimeout(() => {
+//         setSuccess(true);
+//         setLoading(false);
+//       }, 2000);
+//     }
+//   };
+
+//   return (
+//     <div className={classes.root}>
+//       <div className={classes.wrapper}>
+//         <Fab
+//           aria-label="save"
+//           color="primary"
+//           className={buttonClassname}
+//           onClick={handleButtonClick}
+//         >
+//           {success ? <CheckIcon /> : <SaveIcon />}
+//         </Fab>
+//         {loading && <CircularProgress size={68} className={classes.fabProgress} />}
+//       </div>
+//     </div>
+//   );
+// }
+
+// <div className={classes.wrapper}>
+//         <Button
+//           variant="contained"
+//           color="primary"
+//           className={buttonClassname}
+//           disabled={loading}
+//           onClick={handleButtonClick}
+//         >
+//           Accept terms
+//         </Button>
+//         {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
+//       </div>
