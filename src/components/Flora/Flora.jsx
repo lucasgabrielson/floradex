@@ -8,6 +8,9 @@ import {
 import SearchIcon from '@material-ui/icons/Search';
 import NaturalAreaList from '../NaturalAreaList/NaturalAreaList';
 import FloraList from '../FloraList/FloraList';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles( theme => ({
     // root: {
@@ -25,14 +28,26 @@ const useStyles = makeStyles( theme => ({
         },
         searchIcon: {
 
-        }
+        },
+        backdrop: {
+            zIndex: theme.zIndex.drawer + 1,
+            color: '#fff',
+        },
 }));
+
 
 const Flora = () => {
     const classes = useStyles();
 
-    useEffect(() => { dispatch({ type: 'PROCESS_NATURAL_AREAS'}) }, []);
+    useEffect(() => { handleToggle(); }, []);
 
+    const [open, setOpen] = useState(false);
+    const handleClose = () => {
+        setOpen(false);
+    };
+    const handleToggle = () => {
+        setOpen(!open);
+    };
 
     const dispatch = useDispatch();
 
@@ -46,7 +61,10 @@ const Flora = () => {
     // this stores whether or not a search has happened 
     const [searched, setSearched] = useState(false);
 
+    const [didMount, setDidMount] = useState(false)
+
     const floraByNaturalArea = useSelector( store => store.naturalAreasProcessing);
+
 
     const displayList = () => {
         let display = <FloraList total={floraByNaturalArea} />
@@ -77,6 +95,14 @@ const Flora = () => {
         }
         
     }   
+    if( floraByNaturalArea.length === 6 ) {
+        dispatch({ type: 'PROCESS_NATURAL_AREAS'})
+    }
+
+    if( floraByNaturalArea.length > 7 && !didMount ) {
+        setOpen(false);
+        setDidMount(true);
+    }
     
     return (
         <div>
@@ -91,7 +117,10 @@ const Flora = () => {
                 {/* {JSON.stringify(naturalAreas.map( x => x.result.species.tree_shrub))} */}
                 {/* {JSON.stringify(flora())} */}      
             </div>
-            {floraByNaturalArea.length && displayList()}  
+            {floraByNaturalArea.length > 6 && displayList()}  
+            <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
 
         </div>
     )
