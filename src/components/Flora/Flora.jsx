@@ -37,7 +37,8 @@ const Flora = () => {
     const dispatch = useDispatch();
 
     // this is the local state for the value of the search bar
-    const [search, setSearch] = useState({});
+    // const [search, setSearch] = useState({});
+    let search = '';
 
     // this is the local state for the list of sna objects that matched the search
     const [filtered, setFiltered] = useState([]);
@@ -56,13 +57,12 @@ const Flora = () => {
     }
     // handles search function
     const searchForNaturalArea = (e) => {
-        e.preventDefault();
-        setSearch(e.target.value)
+        search += e.target.value;
+        console.log( 'search', search );
+        // create a regex pattern that looks at each letter of the search query
         if( search.length > 0) {
-            console.log( 'in searchForNaturalArea' );
-            // create a regex pattern that looks at each letter of the search query
             let pattern = search.split('').map( x => {
-                return `(${x})`
+            return `(${x})`
             }).join('');
             // creates a regex based on the search pattern and looks globally and is case insensitive
             let regex = new RegExp(`${pattern}`, "gi");
@@ -73,14 +73,13 @@ const Flora = () => {
             // set the search state to the opposite of what it was
             setSearched(true);
         } else {
-            setSearched(false)
+
         }
         
     }   
     
     return (
         <div>
-            { floraByNaturalArea.length === 6 && dispatch({ type: 'PROCESS_NATURAL_AREAS'}) }
             <h1>Flora</h1>
             <div className ={classes.searchContainer}>
                 <Toolbar>
