@@ -73,7 +73,7 @@ const Flora = () => {
             // set the search state to the opposite of what it was
             setSearched(true);
         } else {
-
+            setSearched(false);
         }
         
     }   
@@ -84,7 +84,7 @@ const Flora = () => {
             <div className ={classes.searchContainer}>
                 <Toolbar>
                     <div className ={classes.searchContainer}>
-                        <SearchIcon onClick={() => searchForNaturalArea()} className={classes.searchIcon}/>
+                        <SearchIcon className={classes.searchIcon}/>
                         <TextField onChange={e => searchForNaturalArea(e)} />
                     </div>
                 </Toolbar>
