@@ -3,6 +3,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Link, useHistory} from 'react-router-dom';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import {FaPlusCircle} from 'react-icons/fa';
+import {FaTimesCircle} from 'react-icons/fa';
 
 const NaturalAreaListItem = ({row, index}) => {
     useEffect(() => {
@@ -29,10 +31,10 @@ const NaturalAreaListItem = ({row, index}) => {
         if( userHunts[pos] !== undefined ) {
             console.log( userHunts[pos].displayed  )
         }
-        let display = <TableCell align="right" onClick={() => addToHunts()}>Add</TableCell>
+        let display = <TableCell align="right" onClick={() => addToHunts()}><FaPlusCircle /></TableCell>
         if( userHunts[pos] !== undefined ) {
             if( userHunts[pos].displayed ) {
-                display = <TableCell align="right" onClick={() => removeFromHunts()}>Remove</TableCell>
+                display = <TableCell align="right" onClick={() => removeFromHunts()}><FaTimesCircle /></TableCell>
             }
         }
         return display;

@@ -56,42 +56,13 @@ const NaturalAreas = () => {
     const naturalAreas = useSelector((store) => store.naturalAreas);
 
     // this is the local state for the value of the search bar
-    const [search, setSearch] = useState({});
+    let search = '';
 
     // this is the local state for the list of sna objects that matched the search
     const [filtered, setFiltered] = useState([]);
 
     // this stores whether or not a search has happened 
     const [searched, setSearched] = useState(false);
-
-    // handles search f
-    const searchForNaturalArea = () => {
-        console.log( 'in searchForNaturalArea' );
-        // create a regex pattern that looks at each letter of the search query
-        let pattern = search.split('').map( x => {
-            return `(${x})`
-        }).join('');
-        // creates a regex based on the search pattern and looks globally and is case insensitive
-        let regex = new RegExp(`${pattern}`, "gi");
-        console.log(regex);
-        // sets the filtered array equal to the sna's that match the query
-        setFiltered(naturalAreas.filter( area => (area.result.county + ' ' + area.result.name).split('').join('').match(regex)))
-        console.log(filtered);
-        // set the search state to the opposite of what it was
-        setSearched(!searched);
-    }
-
-    // only pings the api's one time on original page load
-    // const getNaturalAreas = () => {
-    //     console.log( 'in getNaturalAreas' );
-    //     let mounted = false;
-    //     if( naturalAreas.length ) {
-    //         mounted = true;
-    //     }
-    //     if( !mounted ) {
-    //         dispatch({ type: 'FETCH_NATURAL_AREAS' });
-    //     }
-    // }
 
     // conditionally renders the list of all natural areas or the filtered natural areas
     const displayList = () => {
@@ -102,16 +73,39 @@ const NaturalAreas = () => {
         return display;
     }
 
+    // handles search f
+    const searchForNaturalArea = (e) => {
+        search += e.target.value;
+        console.log( 'search', search );
+        // create a regex pattern that looks at each letter of the search query
+        if( search.length > 0) {
+            let pattern = search.split('').map( x => {
+            return `(${x})`
+            }).join('');
+            // creates a regex based on the search pattern and looks globally and is case insensitive
+            let regex = new RegExp(`${pattern}`, "gi");
+            console.log(regex);
+            // sets the filtered array equal to the sna's that match the query
+            setFiltered(naturalAreas.filter( area => (area.result.county + ' ' + area.result.name).match(regex)))
+            console.log(filtered);
+            // set the search state to the opposite of what it was
+            setSearched(true);
+        } else {
+            setSearched(false);
+        }
+        
+    }
+
     return (
         <div>
             <h1>Natural Areas</h1>
             <Toolbar>
                 <div className ={classes.searchContainer}>
-                    <SearchIcon onClick={() => searchForNaturalArea()} className={classes.searchIcon}/>
-                    <TextField onChange={e => setSearch(e.target.value)} />
+                    <SearchIcon className={classes.searchIcon}/>
+                    <TextField onChange={e => searchForNaturalArea(e)} />
                 </div>
             </Toolbar>
-            {displayList()}
+            {naturalAreas.length && displayList()}
 
         </div>
     )
