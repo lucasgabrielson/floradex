@@ -105,7 +105,7 @@ const MyHunts = () => {
                     </TableRow>
                     </TableHead>
                     <TableBody>
-                        {hunts.length && found.map( x => 
+                        {hunts.length > 0 && found.map( x => 
                         <TableRow>
                             <TableCell onClick={() => individualPage(x.result.id)}>{x.result.name}</TableCell>
                             <TableCell>{x.result.county}</TableCell>
