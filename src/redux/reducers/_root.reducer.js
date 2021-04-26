@@ -11,6 +11,7 @@ import userHuntItems from './userHuntItems.reducer';
 import leaderboard from './leaderboard.reducer';
 import totalUsers from './totalUsers.reducer';
 import admin from './admin.reducer';
+import drawer from './drawer.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   leaderboard,
   totalUsers,
   admin,
+  drawer,
 });
 
 export default rootReducer;
