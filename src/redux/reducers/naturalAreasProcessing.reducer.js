@@ -7,7 +7,7 @@ const naturalAreas = (state = [], action) => {
                 state = [...state, action.payload]
             }
             return state;
-        case 'PROCESS_NATURAL_AREAS':
+        case ('PROCESS_NATURAL_AREAS'):
             let treesFiltered = [];
             let trees = [];
             for( let i = 0; i < state.length; i++ ) {

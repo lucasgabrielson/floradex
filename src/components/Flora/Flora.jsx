@@ -55,36 +55,44 @@ const Flora = () => {
         return display;
     }
     // handles search function
-    const searchForNaturalArea = () => {
-        console.log( 'in searchForNaturalArea' );
-        // create a regex pattern that looks at each letter of the search query
-        let pattern = search.split('').map( x => {
-            return `(${x})`
-        }).join('');
-        // creates a regex based on the search pattern and looks globally and is case insensitive
-        let regex = new RegExp(`${pattern}`, "gi");
-        console.log(regex);
-        // sets the filtered array equal to the sna's that match the query
-        setFiltered(floraByNaturalArea.filter( row => (row.cname + ' ' + row.sname + ' ' + row.species).match(regex)))
-        console.log(filtered);
-        // set the search state to the opposite of what it was
-        setSearched(!searched);
+    const searchForNaturalArea = (e) => {
+        e.preventDefault();
+        setSearch(e.target.value)
+        if( search.length > 0) {
+            console.log( 'in searchForNaturalArea' );
+            // create a regex pattern that looks at each letter of the search query
+            let pattern = search.split('').map( x => {
+                return `(${x})`
+            }).join('');
+            // creates a regex based on the search pattern and looks globally and is case insensitive
+            let regex = new RegExp(`${pattern}`, "gi");
+            console.log(regex);
+            // sets the filtered array equal to the sna's that match the query
+            setFiltered(floraByNaturalArea.filter( row => (row.cname + ' ' + row.sname + ' ' + row.species).match(regex)))
+            console.log(filtered);
+            // set the search state to the opposite of what it was
+            setSearched(true);
+        } else {
+            setSearched(false)
+        }
+        
     }   
     
     return (
         <div>
+            { floraByNaturalArea.length === 6 && dispatch({ type: 'PROCESS_NATURAL_AREAS'}) }
             <h1>Flora</h1>
             <div className ={classes.searchContainer}>
                 <Toolbar>
                     <div className ={classes.searchContainer}>
                         <SearchIcon onClick={() => searchForNaturalArea()} className={classes.searchIcon}/>
-                        <TextField onChange={e => setSearch(e.target.value)} />
+                        <TextField onChange={e => searchForNaturalArea(e)} />
                     </div>
                 </Toolbar>
                 {/* {JSON.stringify(naturalAreas.map( x => x.result.species.tree_shrub))} */}
                 {/* {JSON.stringify(flora())} */}      
             </div>
-            {floraByNaturalArea.length ? displayList() : ''}  
+            {floraByNaturalArea.length && displayList()}  
 
         </div>
     )
