@@ -5,6 +5,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import UploadImageToS3WithReactS3 from '../UploadImageToS3WithReactS3/UploadImageToS3WithReactS3';
+import {FaChevronCircleDown} from 'react-icons/fa'
 
 function getModalStyle() {
     return {
@@ -117,7 +118,7 @@ const NaturalAreaItemSpeciesList = ({row, index, type, source, id}) => {
                             {row.cname}
                         </TableCell>
                         <TableCell align="right">{type}</TableCell>
-                        <TableCell align="right" onClick={handleOpen}>{'Details'}</TableCell>
+                        <TableCell align="right" onClick={handleOpen}><FaChevronCircleDown /></TableCell>
                     </TableRow>
                     <Modal
                         open={open}
