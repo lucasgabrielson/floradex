@@ -26,7 +26,7 @@ const Leaderboard = () => {
         <div>
             <h1>Leaderboard</h1>
             {/* {JSON.stringify(id.id)} */}
-            {JSON.stringify(leaderboard.map(function(e) { return e.user_id; }).indexOf(user.id) + 1 + '/' + totalUsers[0].count)}
+            {totalUsers[0] !== undefined && JSON.stringify(leaderboard.map(function(e) { return e.user_id; }).indexOf(user.id) + 1 + '/' + totalUsers[0].count)}
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">
                     <TableHead>

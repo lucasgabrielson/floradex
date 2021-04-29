@@ -7,6 +7,13 @@ function LoginPage() {
 
   return (
     <div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
       <LoginForm />
 
       <center>

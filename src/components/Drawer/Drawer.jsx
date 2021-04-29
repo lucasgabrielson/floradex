@@ -33,19 +33,6 @@ const Drawer = () => {
     }
 
     const drawerState = useSelector((store) => store.drawer)
-    const itemsList = [{text: 'Home', 
-                            icon: <HomeIcon/>,
-                            onClick: () => homeClick(),
-                            color: 'primary'}, 
-                        {text: 'Search', 
-                            icon: <SearchIcon/>,
-                            onClick: () => searchClick()}, 
-                        {text: 'Leaderboard',
-                            icon: <SwapHorizIcon/>,
-                            onClick: () => leaderboardClick()},
-                        {text: 'Chat', 
-                            icon: <ChatIcon />,
-                            onClick: () => chatClick()}]
 
     const useStyles = makeStyles({
         MuiDrawer: {
@@ -60,35 +47,35 @@ const Drawer = () => {
     return(
         <MUIDrawer classes={{paper: classes.MuiDrawer}} onClose={() => closeDrawer()}  open={drawerState}>
             <List>
-                <Link to = '/user' style={{ textDecoration: 'none', color: 'white' }}>
+                <Link to = '/user' style={{ textDecoration: 'none', color: 'white' }} onClick={() => closeDrawer()}>
                     <ListItem >
                         {<ListItemIcon><HomeIcon/></ListItemIcon>}
                         <ListItemText primary='Home' />
                     </ListItem>
                 </Link>
                 
-                <Link to = '/flora' style={{ textDecoration: 'none', color: 'white' }}>
+                <Link to = '/flora' style={{ textDecoration: 'none', color: 'white' }} onClick={() => closeDrawer()}>
                     <ListItem >
                         {<ListItemIcon><FaSeedling/></ListItemIcon>}
                         <ListItemText primary='Flora' />
                     </ListItem>
                 </Link>
 
-                <Link to = '/natural-areas' style={{ textDecoration: 'none', color: 'white' }}>
+                <Link to = '/natural-areas' style={{ textDecoration: 'none', color: 'white' }} onClick={() => closeDrawer()}>
                     <ListItem >
                         {<ListItemIcon><Landscape/></ListItemIcon>}
                         <ListItemText primary='Natural Areas' />
                     </ListItem>
                 </Link>
 
-                <Link to = {`/my-hunts/${user.id}`} params={user.id} style={{ textDecoration: 'none', color: 'white' }}>
+                <Link to = {`/my-hunts/${user.id}`} params={user.id} style={{ textDecoration: 'none', color: 'white' }} onClick={() => closeDrawer()}>
                     <ListItem >
                         {<ListItemIcon><FavoriteBorderIcon /></ListItemIcon>}
                         <ListItemText primary='My Hunts' />
                     </ListItem>
                 </Link>
 
-                <Link to = {`/leaderboard/${user.id}`} params={user.id} style={{ textDecoration: 'none', color: 'white' }}>
+                <Link to = {`/leaderboard/${user.id}`} params={user.id} style={{ textDecoration: 'none', color: 'white' }} onClick={() => closeDrawer()}>
                     <ListItem >
                         {<ListItemIcon><FaListOl /></ListItemIcon>}
                         <ListItemText primary='Leaderboard' />
@@ -97,7 +84,7 @@ const Drawer = () => {
             </List>
             <Divider />
             <List>
-                <ListItem onClick={() => logOutClick()}>
+                <ListItem onClick={() => logOut()}>
                     <ListItemIcon><ExitToAppIcon /></ListItemIcon>
                     <ListItemText primary='Logout' />
                 </ListItem>

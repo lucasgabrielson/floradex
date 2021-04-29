@@ -16,8 +16,8 @@ import swal from 'sweetalert';
 
 const S3_BUCKET ='floradex';
 const REGION ='us-east-2';
-const ACCESS_KEY = process.env.REACT_APP_AWSAccessKeyId;
-const SECRET_ACCESS_KEY = process.env.REACT_APP_AWSSecretKey;
+const ACCESS_KEY = 'AKIA5DNS5D5JR5KIU5X3';
+const SECRET_ACCESS_KEY = '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';
 
 
 const config = {

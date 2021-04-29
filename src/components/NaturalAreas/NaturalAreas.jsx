@@ -9,15 +9,15 @@ import SearchIcon from '@material-ui/icons/Search';
 import NaturalAreaList from '../NaturalAreaList/NaturalAreaList'
 
 const useStyles = makeStyles( theme => ({
-    // root: {
-    //     display: 'flex',
-    //     flexWrap: 'wrap',
-    // },
-    // textField: {
-    //     marginLeft: theme.spacing(1),
-    //     marginRight: theme.spacing(1),
-    //     width: '25ch',
-    // },
+    root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    textField: {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        width: '25ch',
+    },
         searchContainer: {
             display: 'flex',
             

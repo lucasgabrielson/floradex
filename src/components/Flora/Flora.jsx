@@ -46,7 +46,10 @@ const Flora = () => {
         setOpen(false);
     };
     const handleToggle = () => {
-        setOpen(!open);
+        if( !didMount ) {
+            setOpen(!open);
+        }
+        
     };
 
     const dispatch = useDispatch();
@@ -95,11 +98,11 @@ const Flora = () => {
         }
         
     }   
-    if( floraByNaturalArea.length === 6 ) {
+    if( floraByNaturalArea.length === 156 ) {
         dispatch({ type: 'PROCESS_NATURAL_AREAS'})
     }
 
-    if( floraByNaturalArea.length > 7 && !didMount ) {
+    if( floraByNaturalArea.length > 160 && !didMount ) {
         setOpen(false);
         setDidMount(true);
     }
