@@ -35,7 +35,7 @@ const useStyles = makeStyles( theme => ({
 
         },
         table: {
-            minWidth: 650,
+            minWidth: 320,
         },
 }));
 
@@ -87,6 +87,8 @@ const MyHuntsItem = () => {
 
     return (
         <div>
+            <br/>
+            <br/>
             <h1>{!Array.isArray(sna) ? sna.result.name : ''}</h1>
             {/* <Map /> */}
             <Toolbar>

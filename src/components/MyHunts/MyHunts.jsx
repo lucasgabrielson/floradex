@@ -15,12 +15,7 @@ import swal from 'sweetalert';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
-        position: 'absolute',
-        width: 400,
-        backgroundColor: theme.palette.background.paper,
-        border: '2px solid #000',
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
+        width: 350,
     },
 }));
 
@@ -93,6 +88,8 @@ const MyHunts = () => {
 
     return (
         <>
+            <br/>
+            <br/>
             <h1>My Hunts</h1>
             {fetchTableData()}
             <TableContainer className={classes.paper} component={Paper}>
