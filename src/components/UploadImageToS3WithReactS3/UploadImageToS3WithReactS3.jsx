@@ -11,13 +11,12 @@ import { green } from '@material-ui/core/colors';
 import Fab from '@material-ui/core/Fab';
 import CheckIcon from '@material-ui/icons/Check';
 import SaveIcon from '@material-ui/icons/Save';
-import swal from 'sweetalert';
 
 
 const S3_BUCKET ='floradex';
 const REGION ='us-east-2';
-const ACCESS_KEY = process.env.REACT_APP_AWSAccessKeyId;
-const SECRET_ACCESS_KEY = process.env.REACT_APP_AWSSecretKey;
+const ACCESS_KEY = 'AKIA5DNS5D5JY2YOUQ47';
+const SECRET_ACCESS_KEY = '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';
 
 
 const config = {
@@ -108,25 +107,18 @@ const UploadImageToS3WithReactS3 = ({setOpen, id, sname, cname, endpoint}) => {
                 setSuccess(true);
                 setLoading(false);
                 console.log( data );
-                swal({
-                    title: 'Successful Upload!',
-                    icon: 'success',
-                }).then( _ => {
-                        setOpen(false);
-                        setImagePreviewUrl(null)
-                        setSelectedFile(null)
-                        const objectToSend = {
-                            image: data.location,
-                            cname: cname,
-                            sname: sname,
-                            endpoint: id,
-                            id: user.id
-
-                        }
-                        dispatch({ type: 'SET_MY_HUNTS_FLORA_IMAGE', payload: objectToSend})
-                }).catch( err => {
-                    console.log( err );
-                })
+                setOpen(false);
+                setImagePreviewUrl(null)
+                setSelectedFile(null)
+                const objectToSend = {
+                    image: data.location,
+                    cname: cname,
+                    sname: sname,
+                    endpoint: id,
+                    id: user.id        
+                }            
+                dispatch({ type: 'SET_MY_HUNTS_FLORA_IMAGE', payload: objectToSend});
+                history.push(`/my-hunts-item/${id}`)
             }).catch( err => {
                 console.log( err );
             })

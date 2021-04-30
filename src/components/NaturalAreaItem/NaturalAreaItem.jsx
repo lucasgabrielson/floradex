@@ -16,6 +16,10 @@ import {
 } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import NaturalAreaItemSpeciesList from '../NaturalAreaItemSpeciesList/NaturalAreaItemSpeciesList';
+import TablePagination from '@material-ui/core/TablePagination';
+import {FaPlusCircle} from 'react-icons/fa';
+import {FaTimesCircle} from 'react-icons/fa';
+
 
 const useStyles = makeStyles( theme => ({
     // root: {
@@ -35,11 +39,13 @@ const useStyles = makeStyles( theme => ({
 
         },
         table: {
-            minWidth: 650,
+            minWidth: 350,
         },
 }));
 
 const NaturalAreaItem = () => {
+    const user = useSelector((store) => store.user);
+    const userHunts = useSelector( store => store.userHunts);
     const classes = useStyles();
 
     useEffect(() => { dispatch({type: 'FETCH_NATURAL_AREA', payload: id.id}) }, []);
@@ -84,14 +90,71 @@ const NaturalAreaItem = () => {
         
     } 
 
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
+    };
+
+    const pos = userHunts.map(function(e) { return e.natural_area_id; }).indexOf('http://services.dnr.state.mn.us/api/sna/detail/v1?id=' + id.id);
+
+    let displayed = false; 
+
+    let objectToSend = {
+        id: user.id,
+        endpoint: id.id,
+        displayed: displayed
+    }
+
+    const addToHunts = () => {
+        if( pos === -1 ) {
+            dispatch({ type: 'ADD_TO_HUNTS', payload: objectToSend });
+        } else {
+            objectToSend = {
+                id: user.id,
+                endpoint: id.id,
+                displayed: true
+            }
+            dispatch({ type: 'UPDATE_HUNTS', payload: objectToSend });
+        }
+        
+    }
+
+    const removeFromHunts = () => {
+        dispatch({ type: 'UPDATE_HUNTS', payload: objectToSend })
+    }
+
+    const displayCell = () => {
+        if( userHunts[pos] !== undefined ) {
+            console.log( userHunts[pos].displayed  )
+        }
+        let display = <span onClick={() => addToHunts()}><FaPlusCircle /></span>
+        if( userHunts[pos] !== undefined ) {
+            if( userHunts[pos].displayed ) {
+                display = <span align="right" onClick={() => removeFromHunts()}><FaTimesCircle /></span>
+            }
+        }
+        return display;
+    }
+
     return (
         <div>
+            <br/>
+            <br/>
+            <br/>
             <h1>{!Array.isArray(sna) ? sna.result.name : ''}</h1>
             {/* <Map /> */}
             <Toolbar>
                 <div className ={classes.searchContainer}>
                     <SearchIcon className={classes.searchIcon}/>
                     <TextField onChange={e => searchForNaturalArea(e)} />
+                    {displayCell()}
                 </div>
             </Toolbar>
             { !Array.isArray(sna) ? <MapContainer lat={sna.result.parking[0].point.["epsg:4326"][1]} lng={sna.result.parking[0].point.["epsg:4326"][0]}/> : '' }
@@ -109,22 +172,22 @@ const NaturalAreaItem = () => {
                     </TableHead>
                     <TableBody>
                         {!Array.isArray(sna) && !searched ?
-                        sna.result.species.tree_shrub.map((row, index) => <NaturalAreaItemSpeciesList row={row} index={index} type={'Tree'}/>)
+                        sna.result.species.tree_shrub.map((row, index) => <NaturalAreaItemSpeciesList row={row} index={index} type={'Tree'} id={id.id}/>)
                         : '' }
                         {!Array.isArray(sna) && !searched  ?
-                        sna.result.species.grass_sedge.map((row, index) => <NaturalAreaItemSpeciesList row={row} index={index} type={'Grass'}/>)
+                        sna.result.species.grass_sedge.map((row, index) => <NaturalAreaItemSpeciesList row={row} index={index} type={'Grass'} id={id.id}/>)
                         : '' }
                         {!Array.isArray(sna) && !searched ?
-                        sna.result.species.wildflower.map((row, index) => <NaturalAreaItemSpeciesList row={row} index={index} type={'Wildflower'}/>)
+                        sna.result.species.wildflower.map((row, index) => <NaturalAreaItemSpeciesList row={row} index={index} type={'Wildflower'} id={id.id}/>)
                         : '' }
                         {!Array.isArray(sna) && searched ?
-                        filteredTree.map((row, index) => <NaturalAreaItemSpeciesList row={row} index={index} type={'Tree'}/>)
+                        filteredTree.map((row, index) => <NaturalAreaItemSpeciesList row={row} index={index} type={'Tree'} id={id.id}/>)
                         : '' }
                         {!Array.isArray(sna) && searched  ?
-                        filteredGrass.map((row, index) => <NaturalAreaItemSpeciesList row={row} index={index} type={'Grass'}/>)
+                        filteredGrass.map((row, index) => <NaturalAreaItemSpeciesList row={row} index={index} type={'Grass'} id={id.id}/>)
                         : '' }
                         {!Array.isArray(sna) && searched ?
-                        filteredWildflower.map((row, index) => <NaturalAreaItemSpeciesList row={row} index={index} type={'Wildflower'}/>)
+                        filteredWildflower.map((row, index) => <NaturalAreaItemSpeciesList row={row} index={index} type={'Wildflower'} id={id.id}/>)
                         : '' }
                         
                     </TableBody>

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useParams} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -25,8 +25,9 @@ const Leaderboard = () => {
     return (
         <div>
             <h1>Leaderboard</h1>
-            {/* {JSON.stringify(id.id)} */}
-            {JSON.stringify(leaderboard.map(function(e) { return e.user_id; }).indexOf(user.id) + 1 + '/' + totalUsers[0].count)}
+            {totalUsers[0] !== undefined && 
+                <h2>You are {leaderboard.map(function(e) { return e.user_id; }).indexOf(user.id) + 1} out of {totalUsers[0].count} players</h2>
+            }   
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">
                     <TableHead>

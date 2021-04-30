@@ -5,7 +5,11 @@ const MapContainer = ({lat, lng}) => {
 
     const mapStyles = {        
     height: "30vh",
-    width: "30%"
+    width: "80%",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingLeft: 70
     };
 
     const defaultCenter = {
@@ -14,10 +18,10 @@ const MapContainer = ({lat, lng}) => {
 
     return (
         <LoadScript
-        googleMapsApiKey=''>
+        googleMapsApiKey='AIzaSyDPNDX2mq_hi4Legu-DdiXpxjPC0QE2anA'>
             <GoogleMap
             mapContainerStyle={mapStyles}
-            zoom={11}
+            zoom={9}
             center={defaultCenter}
             >
                 <Marker position={defaultCenter}/>

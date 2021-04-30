@@ -35,7 +35,7 @@ const useStyles = makeStyles( theme => ({
 
         },
         table: {
-            minWidth: 650,
+            minWidth: 320,
         },
 }));
 
@@ -50,7 +50,7 @@ const MyHuntsItem = () => {
 
     const sna = useSelector( store => store.naturalArea);
 
-    const [search, setSearch] = useState({});
+    let search = '';
 
     // this is the local state for the list of sna objects that matched the search
     const [filteredTree, setFilteredTree] = useState([]);
@@ -63,37 +63,43 @@ const MyHuntsItem = () => {
     const [flora, setFlora] = useState([]);
 
     // handles search f
-    const searchForNaturalArea = () => {
-        console.log( 'in searchForNaturalArea' );
+    const searchForNaturalArea = (e) => {
+        search += e.target.value;
+        console.log( 'search', search );
         // create a regex pattern that looks at each letter of the search query
-        let pattern = search.split('').map( x => {
+        if( search.length > 0) {
+            let pattern = search.split('').map( x => {
             return `(${x})`
-        }).join('');
-        // creates a regex based on the search pattern and looks globally and is case insensitive
-        let regex = new RegExp(`${pattern}`, "gi");
-        console.log(regex);
-        // sets the filtered array equal to the sna's that match the query
-        setFilteredTree(sna.result.species.tree_shrub.filter( row => (row.cname + ' ' + row.sname).split('').join('').match(regex)));
-        setFilteredGrass(sna.result.species.grass_sedge.filter( row => (row.cname + ' ' + row.sname).split('').join('').match(regex)));
-        setFilteredWildflower(sna.result.species.wildflower.filter( row => (row.cname + ' ' + row.sname).split('').join('').match(regex)));
-        // set the search state to the opposite of what it was
-        setSearched(!searched);
+            }).join('');
+            // creates a regex based on the search pattern and looks globally and is case insensitive
+            let regex = new RegExp(`${pattern}`, "gi");
+            console.log(regex);
+            // sets the filtered array equal to the sna's that match the query
+            setFilteredTree(sna.result.species.tree_shrub.filter( row => (row.cname + ' ' + row.sname).split('').join('').match(regex)));
+            setFilteredGrass(sna.result.species.grass_sedge.filter( row => (row.cname + ' ' + row.sname).split('').join('').match(regex)));
+            setFilteredWildflower(sna.result.species.wildflower.filter( row => (row.cname + ' ' + row.sname).split('').join('').match(regex)));     
+            length = filteredTree.length + filteredGrass.length + filteredWildflower.length
+            // set the search state to the opposite of what it was
+            setSearched(true);
+        } else {
+            setSearched(false);
+        }
     }
 
     return (
         <div>
+            <br/>
+            <br/>
+            <br/>
             <h1>{!Array.isArray(sna) ? sna.result.name : ''}</h1>
             {/* <Map /> */}
             <Toolbar>
                 <div className ={classes.searchContainer}>
-                    <SearchIcon onClick={() => searchForNaturalArea()} className={classes.searchIcon}/>
-                    <TextField onChange={e => setSearch(e.target.value)} />
+                    <SearchIcon className={classes.searchIcon}/>
+                    <TextField onChange={e => searchForNaturalArea(e)} />
                 </div>
             </Toolbar>
             { !Array.isArray(sna) ? <MapContainer lat={sna.result.parking[0].point.["epsg:4326"][1]} lng={sna.result.parking[0].point.["epsg:4326"][0]}/> : '' }
-            {/* <Map lat={sna.result.parking[0].point.["epsg:4326"][1]} long={sna.result.parking[0].point.["epsg:4326"][0]}/> */}
-            {/* { JSON.stringify(sna.result.parking[0].point.["epsg:4326"][1]) : ''} */}
-            {/* {JSON.stringify(sna.result.species)} */}
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>

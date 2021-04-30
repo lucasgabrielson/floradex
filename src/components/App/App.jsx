@@ -26,6 +26,7 @@ import Leaderboard from '../Leaderboard/Leaderboard';
 import MyHunts from '../MyHunts/MyHunts';
 import MyHuntsItem from '../MyHuntsItem/MyHuntsItem';
 import Admin from '../Admin/Admin';
+import Drawer from '../Drawer/Drawer';
 
 import './App.css';
 
@@ -42,6 +43,7 @@ function App() {
   return (
     <Router>
       <div>
+        <Drawer />
         <Nav />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}

@@ -10,15 +10,8 @@ import TableHead from '@material-ui/core/TableHead';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Paper from '@material-ui/core/Paper';
+import './FloraListItem.css';
 
-
-function getModalStyle() {
-    return {
-        top: `$45%`,
-        left: `$45%`,
-        transform: `translate(-$45%, -$45%)`,
-    };
-}
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -33,8 +26,6 @@ const useStyles = makeStyles((theme) => ({
 
 const FloraListItem = ({row, index}) => {
     const classes = useStyles();
-    // getModalStyle is not a pure function, we roll the style only on the first render
-    const [modalStyle] = useState(getModalStyle);
     const [open, setOpen] = useState(false);
     const [openSNA, setOpenSNA] = useState(false);
     const dispatch = useDispatch();
@@ -82,7 +73,7 @@ const FloraListItem = ({row, index}) => {
     }
 
     const body = (
-        <div style={modalStyle} className={classes.paper}>
+        <div className={classes.paper, 'modal-size'}>
         <h2 id="simple-modal-title">{row.cname}</h2>
         <h2>{row.sname}</h2>
         {displayImage()}
@@ -92,7 +83,7 @@ const FloraListItem = ({row, index}) => {
 
 
     const bodyList = (
-        <TableContainer style={modalStyle} className={classes.paper} component={Paper}>
+        <TableContainer className={classes.paper, 'modal-size', 'table'} component={Paper}>
             <Table className={classes.table} aria-label="simple table">
                 <TableHead>
                 <TableRow>
