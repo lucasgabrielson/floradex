@@ -88,7 +88,7 @@ function UserPage() {
             component="img"
             alt="My Hunts"
             height="110"
-            image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSN6S6FN207Ac3iFw5tPxnZlOA6IadEiOagB60t4v4S3R6tWe4LH6zCIggPWbD23Pvov4c&usqp=CAU"
+            image="https://i.ytimg.com/vi/qvbWrsev-Ak/maxresdefault.jpg"
             title="My Hunts"
           />
       </CardActionArea>

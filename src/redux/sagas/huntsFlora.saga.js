@@ -4,8 +4,10 @@ import axios from 'axios';
 function* huntsFlora(action) {
     try {
         console.log( 'in huntsFlora', action.payload );
-        const response = yield axios.post(`/api/hunts-flora/?cname=${action.payload.cname}&sname=${action.payload.sname}&id=${action.payload.id}&image=${action.payload.image}&endpoint=${action.payload.endpoint}`);
-        // yield put({ type: 'SET_FLORA_IMAGE_ADMIN', payload: response.data });
+        yield axios.post(`/api/hunts-flora/?cname=${action.payload.cname}&sname=${action.payload.sname}&id=${action.payload.id}&image=${action.payload.image}&endpoint=${action.payload.endpoint}`);
+        yield put({ type: 'GET_ADMIN' });
+        // yield axios.get('/api/admin');
+        // yield put({ type: 'SET_ADMIN', payload: response.data });
     } catch (error) {
         console.log('Error getting apis from database', error);
     }

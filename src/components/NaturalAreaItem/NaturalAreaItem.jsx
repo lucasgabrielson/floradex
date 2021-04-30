@@ -147,6 +147,7 @@ const NaturalAreaItem = () => {
         <div>
             <br/>
             <br/>
+            <br/>
             <h1>{!Array.isArray(sna) ? sna.result.name : ''}</h1>
             {/* <Map /> */}
             <Toolbar>

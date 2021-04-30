@@ -12,6 +12,7 @@ import Modal from '@material-ui/core/Modal';
 import Paper from '@material-ui/core/Paper';
 import {useParams} from 'react-router-dom';
 import swal from 'sweetalert';
+import {FaTrashAlt} from 'react-icons/fa';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -90,6 +91,7 @@ const MyHunts = () => {
         <>
             <br/>
             <br/>
+            <br/>
             <h1>My Hunts</h1>
             {fetchTableData()}
             <TableContainer className={classes.paper} component={Paper}>
@@ -106,7 +108,7 @@ const MyHunts = () => {
                         <TableRow>
                             <TableCell onClick={() => individualPage(x.result.id)}>{x.result.name}</TableCell>
                             <TableCell>{x.result.county}</TableCell>
-                            <TableCell onClick={() => removeFromHunts(x.result.id)}>X</TableCell>
+                            <TableCell onClick={() => removeFromHunts(x.result.id)}><FaTrashAlt/></TableCell>
                         </TableRow>
                         )}               
                     </TableBody>

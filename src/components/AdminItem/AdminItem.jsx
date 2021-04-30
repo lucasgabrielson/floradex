@@ -51,7 +51,7 @@ const AdminItem = ({row, index}) => {
 
     return (
         <>
-           <TableRow>
+            <TableRow>
                 <TableCell>{row.common_name}</TableCell>
                 <TableCell>{row.scientific_name}</TableCell>
                 <TableCell>{row.user_id}</TableCell>

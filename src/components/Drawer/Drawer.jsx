@@ -26,7 +26,7 @@ const Drawer = () => {
     const closeDrawer = () => {
         dispatch({type: 'UNSET_DRAWER'})    
     }
-    const logOutClick = () => {
+    const logOut = () => {
         dispatch({ type: 'LOGOUT' })
         dispatch({type: 'UNSET_DRAWER'})    
         history.push('/')

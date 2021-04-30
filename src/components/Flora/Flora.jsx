@@ -109,6 +109,8 @@ const Flora = () => {
     
     return (
         <div>
+            <br/>
+            <br/>
             <h1>Flora</h1>
             <div className ={classes.searchContainer}>
                 <Toolbar>
