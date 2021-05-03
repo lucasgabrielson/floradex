@@ -10,6 +10,10 @@ function RegisterPage() {
 
   return (
     <div className="background">
+    <br/>
+    <br/>
+    <br/>
+    <br/>
       <RegisterForm />
       <center>
         <Button
@@ -17,7 +21,7 @@ function RegisterPage() {
           variant="contained"
           type="submit"
           style={{
-            width: 270,
+            width: '100%',
             marginTop: 30,
           }}
           onClick={() => {

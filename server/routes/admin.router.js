@@ -18,10 +18,18 @@ router.get('/', (req, res) => {
 });
 
 /**
- * POST route template
+ * PUT route template
  */
-router.post('/', (req, res) => {
-  // POST route code here
+router.put('/', (req, res) => {
+    console.log( 'in UPDATE /api/admin', req.query);
+    let queryText = `UPDATE natural_areas_hunts_flora SET "substantiated" = true WHERE user_id = $1 AND natural_area_id = $2 AND common_name = $3`;
+    pool.query(queryText, [req.query.id, req.query.area_id, req.query.cname])
+        .then( results => {
+            res.sendStatus(200);
+        }).catch( err => {
+            console.log( 'error', err);
+            res.sendStatus(500);
+        })
 });
 
 module.exports = router;

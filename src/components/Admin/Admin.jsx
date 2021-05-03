@@ -15,6 +15,9 @@ const Admin = () => {
     const admin = useSelector( store => store.admin);
     return (
         <div>
+            <br/>
+            <br/>
+            <br/>
             <h1>Admin</h1>
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">
@@ -25,7 +28,7 @@ const Admin = () => {
                         <TableCell>User</TableCell>
                         <TableCell>Natural Area</TableCell>
                         <TableCell align="right">Image</TableCell>
-                        <TableCell>Substantiate</TableCell>
+                        <TableCell align="right">Substantiate</TableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>

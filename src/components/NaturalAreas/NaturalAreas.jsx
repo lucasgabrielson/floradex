@@ -100,6 +100,7 @@ const NaturalAreas = () => {
         <div>
             <br />
             <br />
+            <br />
             <h1>Natural Areas</h1>
             <Toolbar>
                 <div className ={classes.searchContainer}>

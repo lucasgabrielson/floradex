@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useDispatch} from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -26,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AdminItem = ({row, index}) => {
+    useEffect(() => { dispatch({type: 'GET_ADMIN' })}, []);
+
     const [modalStyle] = useState(getModalStyle);
     const classes = useStyles();
 
@@ -48,7 +50,10 @@ const AdminItem = ({row, index}) => {
         </div>
 
     );
-
+    
+    const handleClick = () => {
+        dispatch({ type: 'SUBSTANTIATE', payload: {id: row.user_id, area_id: row.natural_area_id, cname: row.common_name}})
+    }
     return (
         <>
             <TableRow>
@@ -57,7 +62,7 @@ const AdminItem = ({row, index}) => {
                 <TableCell>{row.user_id}</TableCell>
                 <TableCell>{row.natural_area_id.slice(53)}</TableCell>
                 <TableCell align="right" onClick={() => handleOpen()}>Image</TableCell>                
-                <TableCell align="right">Check</TableCell>                
+                <TableCell align="right" onClick={() => handleClick()}>Check</TableCell>                
             </TableRow> 
             <Modal
                 open={open}

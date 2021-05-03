@@ -15,8 +15,8 @@ import SaveIcon from '@material-ui/icons/Save';
 
 const S3_BUCKET ='floradex';
 const REGION ='us-east-2';
-const ACCESS_KEY = 'AKIA5DNS5D5JY2YOUQ47';
-const SECRET_ACCESS_KEY = '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';
+const ACCESS_KEY = 'AKIA5DNS5D5JR6IUOZHC';
+const SECRET_ACCESS_KEY = '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';
 
 
 const config = {

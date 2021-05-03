@@ -30,9 +30,12 @@ function UserPage() {
 
   return (
     <>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
       <header>
-        <h1>Floradex</h1>
-        <h2>Let the Adventure Begin!</h2>
       </header>
       {/* <Link to = '/natural-areas'>
         <button>Find a Natural Area</button>
@@ -55,7 +58,7 @@ function UserPage() {
           />
       </CardActionArea>
       <CardActions>
-        <Link to = '/natural-areas'>
+        <Link to = '/natural-areas' style={{ textDecoration: 'none', color: 'white' }}>
           <Button size="large" color="primary">
             Find a Natural Area
           </Button>        
@@ -74,7 +77,7 @@ function UserPage() {
           />
       </CardActionArea>
       <CardActions>
-        <Link to = '/flora'>
+        <Link to = '/flora' style={{ textDecoration: 'none', color: 'white' }}>
           <Button size="large" color="primary">
             Find by Flora
           </Button> 
@@ -93,7 +96,7 @@ function UserPage() {
           />
       </CardActionArea>
       <CardActions>
-        <Link to = {`/my-hunts/${user.id}`} params={user.id}>
+        <Link to = {`/my-hunts/${user.id}`} params={user.id} style={{ textDecoration: 'none', color: 'white' }}>
           <Button size="large" color="primary">
             My Hunts
           </Button> 

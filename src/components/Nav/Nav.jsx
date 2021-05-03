@@ -39,6 +39,7 @@ function Nav() {
             <MenuIcon onClick={() => toggleDrawer()}/>
           </IconButton>
           <Typography variant="h6" className={classes.title}>
+            Floradex
           </Typography>
         </Toolbar>
       </AppBar>
