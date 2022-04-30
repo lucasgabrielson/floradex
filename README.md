@@ -37,7 +37,7 @@ Link to software that is required to install the app (e.g. node).
 
 
 1. Create a database named `floradex`,
-2. The queries in the `tables.sql` file are set up to create all the necessary tables and populate the needed data to allow the application to run correctly. The project is built on [Postgres](https://www.postgresql.org/download/), so you will need to make sure to have that installed. We recommend using Postico to run those queries as that was used to create the queries, 
+2. The queries in the `tables.sql` file are set up to create all the necessary tables and populate the needed data to allow the application to run correctly. The project is built on [Postgres](https://www.postgresql.org/download/)
 3. Open up your editor of choice and run an `npm install`
 4. Create an account with Google Cloud Platform, AWS, and Trefle.io
 5. Obtain API Key from Google and Trefle
